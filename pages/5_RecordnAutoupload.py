@@ -1,10 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components  # Import Streamlit
 
-
-
-
-
 st.set_page_config(page_title='Mon Chaton - Care your cat', layout='wide')
 # Layout
 st.title(' 📸  Care On')
@@ -236,14 +232,6 @@ html = '''
 
         }
 
-            
-
-
-
-        //   downloadButton.href = recordingPlayer.src;
-        //   downloadButton.download = `recording_1.mp4`;
-        //   downloadButton.click();
-        }
         
         // event
         startButton.addEventListener("click", videoStart);
