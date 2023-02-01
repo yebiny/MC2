@@ -12,6 +12,7 @@ st.text('db')
 
 collections = db.collections('Videos')
 st.text('collections')
+st.text(collections)
 for collection in collections:
     for doc in collection.stream():
         st.text(f'{doc.id} => {doc.to_dict()}')
