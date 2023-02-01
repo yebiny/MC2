@@ -152,7 +152,7 @@ html = '''
         const recordingPlayer = document.querySelector("#recording");
         // setting
         const recordImg = document.getElementById('record-img');
-        const recordingDuration = 4000;
+        const recordingDuration = 5000; //5 sec
         let recorder;
         let recordedChunks;
         var isRecord = false;
@@ -210,19 +210,31 @@ html = '''
           recordImg.innerText = "녹화 Off";
           console.log('녹화종료: ' + isRecord);
           recorder.stop();
-          setTimeout("playRecording()", 500)
+          setTimeout("playRecording()", 100)
         }
         
         function playRecording() {
           var storageRef = storage.ref();
-          const videoRef = storageRef.child(Date() + '.mp4');
+          date = new Date();
+          year = date.getFullYear();
+          month = date.getMonth() + 1;
+          day = date.getDate();
+          hours = date.getHours();
+          minutes = date.getMinutes();
+          seconds = date.getSeconds();
+          f_name = year + "-" + month +"-"+ day +"-"+ hours +"-"+ minutes +"-"+ seconds+".mp4";
+
+          const videoRef = storageRef.child("Videos/"+f_name);
           const recordedBlob = new Blob(recordedChunks, { type: "video/mp4" });
           recordingPlayer.src = URL.createObjectURL(recordedBlob);
+
           //recordingPlayer.play();
           videoRef.put(recordedBlob).then(function(snapshot) {
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
-          console.log("File URL: " + videoRef.getDownloadURL());
+            console.log(f_name)
           });
+
+        }
 
             
 
