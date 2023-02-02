@@ -7,7 +7,7 @@ key_dict = json.loads(st.secrets["textkey"])
 st.text('key')
 creds = service_account.Credentials.from_service_account_info(key_dict)
 st.text('creds')
-db = firestore.Client(credentials=creds, project="Monchaton2022")
+db = firestore.Client(credentials=creds, project="Monchaton2022-32941")
 st.text('db')
 
 collection = db.collection('user001')
