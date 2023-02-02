@@ -22,4 +22,3 @@ for doc in collection.stream():
   
   st.subheader(f"Date: {video_name}")
   st.write(f":link: [{url}]({url})")
-  st.video(url)
