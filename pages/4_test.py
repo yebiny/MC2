@@ -11,7 +11,7 @@ db = firestore.Client(credentials=creds, project="Monchaton2022-32941")
 st.text('db')
 st.text(dir(db))
 
-collection = db.collections()
+collections = db.collections()
 st.text(collections)
 st.text(dir(collections))
 for doc in collection.stream():
