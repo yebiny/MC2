@@ -8,6 +8,7 @@ import cv2
 
 def get_frame_from_url(url):
   cap = cv2.VideoCapture(url)
+  loadedImage = None
   while(cap.isOpened()):
       ret, image = cap.read()    
       loadedImage = cv2.imdecode(image, cv2.IMREAD_COLOR)
@@ -16,6 +17,7 @@ def get_frame_from_url(url):
       break
   cap.release()
   cv2.destroyAllWindows()
+  
   return loadedImage
 
 
@@ -30,5 +32,8 @@ for doc in collection.stream():
   post = doc.to_dict()
   video_name = post['File_title']
   url = post['URL']
-  cap = cv2.VideoCapture(url)
-  st.text(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+  loadedImage = get_frame_from_url(url)
+ 
+  st.subtitle(video_name)
+  if loadedImage is not None:
+    st.image(loadedImage)
