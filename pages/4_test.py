@@ -15,18 +15,9 @@ collection = db.collection("user001")
 st.text(dir(collection))
 st.text(collection.stream())
 for doc in collection.stream():
-  st.text(doc.id)
-
-#st.text(collection.steram())
-
-#.document("2023_02_02_20_02_45")
-#st.text(doc_ref)
-
-
-# Then get the data at that reference.
-doc = doc_ref.get()
-
-
-# Let's see what we got!
-st.write("The id is: ", doc.id)
-st.write("The contents are: ", doc.to_dict())
+  post = doc.to_dict()
+  vidoe_name = post['File_title']
+  url = post['URL']
+  
+  st.subheader(f"Date: {vidoe_name}")
+	st.write(f":link: [{url}]({url})")
