@@ -38,10 +38,8 @@ if st.button("불러오기"):
       url = doc.to_dict()["URL"]
       video_img = get_frame_from_url(url)
       
-    st.subheader(f'{h}시 {mi}분 {se}초')
-    col1, col2 = st.columns(2)
-    while col1:
-      st.image(video_img)
-    while col2:
-      if st.button("영상 플레이", key=doc.id):
+      st.subheader(f'{h}시 {mi}분 {se}초')
+      col1, col2 = st.columns(2)
+      col1.image(video_img)
+      if col2.button("영상 플레이", key=doc.id):
         st.text('플레이')  
