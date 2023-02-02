@@ -33,6 +33,6 @@ for doc in collection.stream():
   url = post['URL']
   loadedImage = get_frame_from_url(url)
  
-  st.subtitle(video_name)
+  st.subheader(video_name)
   if loadedImage is not None:
     st.image(loadedImage)
