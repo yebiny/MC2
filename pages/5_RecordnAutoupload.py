@@ -223,10 +223,10 @@ html = '''
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name);
             db.collection('user001').doc("video-log").set({
-              "Test": "test!"
+              "Test": "test!",
               "File_title": f_name
             });
-          };
+          });
         }
 
         
