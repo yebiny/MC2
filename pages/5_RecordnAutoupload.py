@@ -147,7 +147,7 @@ html = '''
 
         // 변수 선언
         const recordImg = document.getElementById('record-img');
-        const recordingDuration = 10000; //10 sec
+        const recordingDuration = 5000; //10 sec
         let recorder;
         let recordedChunks;
         var isRecord = false;
@@ -226,11 +226,12 @@ html = '''
           videoRef.put(recordedBlob).then(function(snapshot) {
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name);
-            //console.log(db.collection(userId).get())
-            db.collection('user001').doc(f_name).set({
-              File_title: f_name+".mp4",
-              URL : snapshot.ref.getDownloadURL()
-            });
+            url = snapshot.ref.getDownloadURL();
+            console.log(url)
+            //db.collection(userId).doc(f_name).set({
+            //  File_title: f_name+".mp4",
+            //  URL : snapshot.ref.getDownloadURL()
+            //});
           });
         }
 
