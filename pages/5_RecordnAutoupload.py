@@ -143,7 +143,7 @@ html = '''
         const recordingPlayer = document.querySelector("#recording");
         // setting
         const recordImg = document.getElementById('record-img');
-        const recordingDuration = 5000; //5 sec
+        const recordingDuration = 10000; //10 sec
         let recorder;
         let recordedChunks;
         var isRecord = false;
@@ -225,8 +225,7 @@ html = '''
             console.log(f_name);
             //console.log(db.collection("user001").get())
             db.collection('user001').doc(f_name).set({
-              Test: "test!",
-              File_title: f_name,
+              File_title: f_name+".mp4",
               URL : recordingPlayer.src
             });
           });
