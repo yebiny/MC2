@@ -10,8 +10,14 @@ st.text('creds')
 db = firestore.Client(credentials=creds, project="Monchaton2022")
 st.text('db')
 
-doc_ref = db.collection('user001').document("2023_02_02_20_02_45")
-st.text(doc_ref)
+collection = db.collection('user001')
+for doc in collection.stream():
+  st.text(doc.id)
+
+#st.text(collection.steram())
+
+#.document("2023_02_02_20_02_45")
+#st.text(doc_ref)
 
 
 # Then get the data at that reference.
