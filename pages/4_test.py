@@ -42,4 +42,4 @@ if st.button("불러오기"):
       col1, col2 = st.columns(2)
       col1.image(video_img)
       if col2.button("영상 플레이", key=doc.id):
-        st.text('플레이')  
+        col2.text('플레이')  
