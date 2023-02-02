@@ -10,11 +10,11 @@ st.text('creds')
 db = firestore.Client(credentials=creds, project="Monchaton2022")
 st.text('db')
 
-collections = db.collections('user001')
+collection = db.collection('user001')
 st.text('collections')
 
 # For a reference to a collection, we use .stream() instead of .get()
-for doc in collections.get():
+for doc in collection.get():
 	st.write("The id is: ", doc.id)
 	st.write("The contents are: ", doc.to_dict())
   
