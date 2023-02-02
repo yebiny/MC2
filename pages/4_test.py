@@ -9,14 +9,12 @@ import cv2
 def get_frame_from_url(url):
   cap = cv2.VideoCapture(url)
   loadedImage = None
-  while(cap.isOpened()):
-      ret, image = cap.read()    
-      if cv2.waitKey(1) & 0xFF == ord('q'):
-          break
+  while True:
+      ret, frame = cap.read()  
+      if frame is not None:
+        loadedImage = frame
       break
-  cap.release()
-  cv2.destroyAllWindows()
-  
+        
   return loadedImage
 
 
@@ -34,5 +32,6 @@ for doc in collection.stream():
   loadedImage = get_frame_from_url(url)
  
   st.subheader(video_name)
+  st.text(loadedImage)
   if loadedImage is not None:
     st.image(loadedImage)
