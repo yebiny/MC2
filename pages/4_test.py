@@ -20,4 +20,4 @@ for doc in collection.stream():
   url = post['URL']
   
   st.subheader(f"Date: {vidoe_name}")
-	st.write(f":link: [{url}]({url})")
+  st.write(f":link: [{url}]({url})")
