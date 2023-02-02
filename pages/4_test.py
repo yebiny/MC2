@@ -9,8 +9,10 @@ creds = service_account.Credentials.from_service_account_info(key_dict)
 st.text('creds')
 db = firestore.Client(credentials=creds, project="Monchaton2022-32941")
 st.text('db')
+st.text(dir(db))
 
 collection = db.collection('user001')
+st.text(dir(collection))
 for doc in collection.stream():
   st.text(doc.id)
 
