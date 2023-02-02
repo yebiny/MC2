@@ -14,8 +14,6 @@ def get_frame_from_url(url):
       if cv2.waitKey(1) & 0xFF == ord('q'):
           break
       break
-  cap.release()
-  cv2.destroyAllWindows()
   return loadedImage
 
 cap.release()
