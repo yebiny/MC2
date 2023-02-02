@@ -32,6 +32,16 @@ for doc in collection.stream():
   video_name = post['File_title']
   url = post['URL']
   loadedImage = get_frame_from_url(url)
+  
   st.subheader(video_name)
-  if loadedImage is not None:
-    st.image(loadedImage)
+  col1, col2, col3 = st.columns(3)
+  with col1:
+    st.text("장소:")
+  with col2:
+    if loadedImage is not None:
+      st.image(loadedImage)
+  with col3:
+    if button('Play'):
+      st.write('play!')
+
+    
