@@ -10,14 +10,15 @@ st.text('creds')
 db = firestore.Client(credentials=creds, project="Monchaton2022")
 st.text('db')
 
-collections = db.collections('Videos')
+collections = db.collections('user001')
 st.text('collections')
-st.text(collections)
-ref = db.document('Videos')
-st.text('ref')
-st.text(ref)
-for collection in collections:
-    st.text(collections)
+
+#st.text(collections)
+#ref = db.document('Videos')
+#st.text('ref')
+#st.text(ref)
+#for collection in collections:
+#    st.text(collections)
 #    for doc in collection.stream():
 #        st.text(f'{doc.id} => {doc.to_dict()}')
 
