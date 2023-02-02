@@ -12,6 +12,8 @@ st.text('db')
 st.text(dir(db))
 
 collection = db.collection("user001")
+st.text(dir(collection))
+st.text(collection.steram())
 for doc in collection.stream():
   st.text(doc.id)
 
