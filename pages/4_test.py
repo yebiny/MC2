@@ -14,7 +14,7 @@ collections = db.collections('user001')
 st.text('collections')
 
 # For a reference to a collection, we use .stream() instead of .get()
-for doc in collections.stream():
+for doc in collections.get():
 	st.write("The id is: ", doc.id)
 	st.write("The contents are: ", doc.to_dict())
   
