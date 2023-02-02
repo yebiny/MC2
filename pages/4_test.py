@@ -10,12 +10,13 @@ st.text('creds')
 db = firestore.Client(credentials=creds, project="Monchaton2022")
 st.text('db')
 
-doc = db.collection('user001').document("2023_02_02_20_02_45")
-st.text(doc)
+doc_ref = db.collection('user001').document("2023_02_02_20_02_45")
+st.text(doc_ref)
 
 
 # Then get the data at that reference.
 doc = doc_ref.get()
+
 
 # Let's see what we got!
 st.write("The id is: ", doc.id)
