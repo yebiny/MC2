@@ -213,9 +213,9 @@ html = '''
           hours = date.getHours();
           minutes = date.getMinutes();
           seconds = date.getSeconds();
-          f_name = year + "-" + month +"-"+ day +"-"+ hours +"-"+ minutes +"-"+ seconds+".mp4";
+          f_name = year + "_" + month +"_"+ day +"_"+ hours +"_"+ minutes +"_"+ seconds;
 
-          const videoRef = storageRef.child("Videos/"+f_name);
+          const videoRef = storageRef.child("Videos/"+f_name+".mp4");
           const recordedBlob = new Blob(recordedChunks, { type: "video/mp4" });
           recordingPlayer.src = URL.createObjectURL(recordedBlob);
 
@@ -223,9 +223,10 @@ html = '''
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name);
             //console.log(db.collection("user001").get())
-            db.collection('user001').add({
+            db.collection('user001').doc(f_name).set({
               Test: "test!",
-              File_title: f_name
+              File_title: f_name,
+              URL : recordingPlayer.src
             });
           });
         }
