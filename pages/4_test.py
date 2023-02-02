@@ -33,15 +33,18 @@ date_input = st.date_input(
     datetime.date(2023, 2, 1))
 
 started = False
-if st.button("불러오기"):
-  for doc in collection.stream():
-    y, m, d, h, mi, se = doc.id.split('_')
-    if str(date_input).split('-') != [y, m, d]: 
-      if started: break
-      else: continue
-      
-    started = True
-    url = doc.to_dict()["URL"]
-    video_img = get_frame_from_url(url)
-    st.subheader(f'{h}시 {mi}분 {se}초')
-    st.image(video_img)
+for doc in collection.stream():
+  y, m, d, h, mi, se = doc.id.split('_')
+  if str(date_input).split('-') != [y, m, d]: 
+    if started: break
+    else: continue
+
+  started = True
+  url = doc.to_dict()["URL"]
+  video_img = get_frame_from_url(url)
+  st.text(f'### {h}시 {mi}분 {se}초')
+  
+  st.image(video_img)
+  if st.button('플레이', key=url):
+    st.text('동영상 넣기')
+    
