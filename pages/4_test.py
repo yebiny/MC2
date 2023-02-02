@@ -1,8 +1,8 @@
-from streamlit_player import st_player
 import streamlit as st
 from google.cloud import firestore
 from google.oauth2 import service_account
 import json
+import cv2
 
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
@@ -17,4 +17,11 @@ for doc in collection.stream():
   url = post['URL']
   
   st.subheader(f"Date: {video_name}")
-  st.write(f":link: [{url}]({url})")
+  cap = cv2.VideoCapture(url)
+  while(True):
+    ret, frame = vcap.read()
+    if frame is not None:
+        st.image(frame)
+        break
+    else:
+        break
