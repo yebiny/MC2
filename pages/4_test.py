@@ -36,5 +36,5 @@ if st.button("불러오기"):
     y, m, d, h, mi, se = doc.id.split('_')
     if str(date_input).split('-') == [y, m, d]:
       url = doc.to_dict()["URL"]
-      st.subhead(f'{h}시 {mi}분 {se}초')
+      st.subheader(f'{h}시 {mi}분 {se}초')
       st.text(url)
