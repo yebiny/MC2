@@ -26,16 +26,14 @@ creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds)
 collection = db.collection("user001")
 
-
-
 st.title('저장된 영상 플레이')
 date_input = st.date_input(
     "영상을 불러올 날짜를 선택하세요.",
     datetime.date(2023, 1, 1))
 
-doc1 = collection.document("2023_02_02_22_18_05").get()
-st.write("The id is: ", doc1.id)
-
-
-doc2 = collection.document("2023_02_02*").get()
-st.write("The id is: ", doc2.id)
+for doc in collection.stream():
+  doc_id = doc.id
+  st.text(f'date input: {date_input.split("-")}')
+  st.text(f'doc id: {doc_id.split("_")[:3]}')
+  if date_input.split('-') == doc_id.split('_')[:3]:
+    st.text('SAME')    
