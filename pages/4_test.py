@@ -32,18 +32,21 @@ date_input = st.date_input(
     "영상을 불러올 날짜를 선택하세요.",
     datetime.date(2023, 2, 1))
 
-started = False
-for doc in collection.stream():
-  y, m, d, h, mi, se = doc.id.split('_')
-  if str(date_input).split('-') != [y, m, d]: 
-    if started: break
-    else: continue
-
-  started = True
-  url = doc.to_dict()["URL"]
-  video_img = get_frame_from_url(url)
-  st.caption(f'{h}시 {mi}분 {se}초')
-  st.image(video_img)
-  if st.button('플레이', key=url):
-    st.text('동영상 넣기')
+if st.button("가져오기"):
+  started = False
+  for doc in collection.stream():
+    y, m, d, h, mi, se = doc.id.split('_')
+    if str(date_input).split('-') != [y, m, d]: 
+      if started: break
+      else: continue
+    
+    started = True
+    url = doc.to_dict()["URL"]
+    video_img = get_frame_from_url(url)
+    
+    st.subheader(f'{h}시 {mi}분 {se}초')
+    st.image(video_img)
+  
+  #if st.button('플레이', key=url):
+  #  st.text('동영상 넣기')
     
