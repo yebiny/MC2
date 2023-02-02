@@ -9,16 +9,16 @@ import datetime
 
 def get_frame_from_url(url):
   cap = cv2.VideoCapture(url)
-  loadedImage = None
+  img = None
   while True:
       ret, frame = cap.read()  
       if frame is not None:
         frame = cv2.resize(frame, (300, 200))
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        loadedImage = frame
+        img = frame
       break
         
-  return loadedImage
+  return img
 
 # 파이어베이스 db에서 정보 가져오기
 key_dict = json.loads(st.secrets["textkey"])
@@ -29,12 +29,19 @@ collection = db.collection("user001")
 st.title('저장된 영상 플레이')
 date_input = st.date_input(
     "영상을 불러올 날짜를 선택하세요.",
-    datetime.date(2023, 1, 1))
+    datetime.date(2023, 2, 1))
 
 if st.button("불러오기"):
   for doc in collection.stream():
     y, m, d, h, mi, se = doc.id.split('_')
     if str(date_input).split('-') == [y, m, d]:
       url = doc.to_dict()["URL"]
+      video_img = get_frame_from_url(url)
+      
       st.subheader(f'{h}시 {mi}분 {se}초')
-      st.text(url)
+      col1, col2 = st.columns(2)
+      while col1:
+        st.image(video_img)
+      while col2:
+        if st.button("영상 플레이", key=doc.id):
+          st.text('플레이')  
