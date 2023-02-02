@@ -222,9 +222,9 @@ html = '''
           videoRef.put(recordedBlob).then(function(snapshot) {
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name);
-            db.collection('user001').doc("video-log").set({
-              "Test": "test!",
-              "File_title": f_name
+            db.collection('user001').add({
+              Test: "test!",
+              File_title: f_name
             });
           });
         }
