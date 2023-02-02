@@ -208,7 +208,7 @@ html = '''
           var storageRef = storage.ref();
           date = new Date();
           year = date.getFullYear();
-          month = date.getMonth() + 1;
+          month = date.getMonth().padStart(2, '0') + 1;
           day = date.getDate();
           hours = date.getHours();
           minutes = date.getMinutes();
@@ -234,8 +234,6 @@ html = '''
         
         // event
         startButton.addEventListener("click", videoStart);
-        //stopButton.addEventListener("click", stopRecording);
-        //playButton.addEventListener("click", playRecording);
         
         /* button ui */
         const buttons = document.querySelectorAll(".button-container > button");
