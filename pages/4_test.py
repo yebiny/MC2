@@ -25,6 +25,8 @@ key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds)
 collection = db.collection("user001")
+selected_db = []
+
 
 st.title('저장된 영상 플레이')
 date_input = st.date_input(
@@ -32,14 +34,14 @@ date_input = st.date_input(
     datetime.date(2023, 2, 1))
 
 if st.button("불러오기"):
-  selected_db = []
   for doc in collection.stream():
     y, m, d, h, mi, se = doc.id.split('_')
     if str(date_input).split('-') == [y, m, d]:
       url = doc.to_dict()["URL"]
       video_img = get_frame_from_url(url)
       selected_db.append([h, mi, se, url, video_img])
-      
+
+if bool(selected_db):
   for h, mi, se, url, video_img in selected_db:
     st.subheader(f'{h}시 {mi}분 {se}초')
     col1, col2 = st.columns(2)
