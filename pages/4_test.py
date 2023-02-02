@@ -44,7 +44,7 @@ for (video_name, url, loadedImage) in ds:
     if loadedImage is not None:
       st.image(loadedImage)
   with col3:
-    if st.button('Play'):
+    if st.button('Play', key=video_name):
       st.write('play!')
 
     
