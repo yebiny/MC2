@@ -31,4 +31,5 @@ for doc in collection.stream():
   video_name = post['File_title']
   url = post['URL']
   loadedImage = get_frame_from_url(url)
-  st.text(loadedImage)
+  cap = cv2.VideoCapture(url)
+  st.text(cap.get(cv2.CAP_PROP_FRAME_COUNT))
