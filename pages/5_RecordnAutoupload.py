@@ -229,7 +229,7 @@ html = '''
             //console.log(db.collection(userId).get())
             db.collection('user001').doc(f_name).set({
               File_title: f_name+".mp4",
-              URL : recordingPlayer.src
+              URL : snapshot.ref.getDownloadURL()
             });
           });
         }
