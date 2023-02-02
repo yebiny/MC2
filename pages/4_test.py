@@ -17,7 +17,7 @@ st.text(collection.stream())
 for doc in collection.stream():
   post = doc.to_dict()
   vidoe_name = post['File_title']
-  url = post['URL']
+  url = post['URL'][4:]
   
   st.subheader(f"Date: {vidoe_name}")
   st.write(f":link: [{url}]({url})")
