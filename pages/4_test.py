@@ -18,10 +18,5 @@ for doc in collection.stream():
   
   st.subheader(f"Date: {video_name}")
   cap = cv2.VideoCapture(url)
-  while(True):
-    ret, frame = cap.read()
-    if frame is not None:
-        st.image(frame)
-        break
-    else:
-        break
+  ret, frame = cap.read()
+  st.image(frame)
