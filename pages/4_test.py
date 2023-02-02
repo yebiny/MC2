@@ -11,7 +11,6 @@ def get_frame_from_url(url):
   loadedImage = None
   while(cap.isOpened()):
       ret, image = cap.read()    
-      loadedImage = cv2.imdecode(image, cv2.IMREAD_COLOR)
       if cv2.waitKey(1) & 0xFF == ord('q'):
           break
       break
