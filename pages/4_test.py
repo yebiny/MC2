@@ -27,12 +27,15 @@ collection = db.collection("user001")
 
 st.title('반려캠 ')
 
+ds = []
 for doc in collection.stream():
   post = doc.to_dict()
   video_name = post['File_title']
   url = post['URL']
   loadedImage = get_frame_from_url(url)
-  
+  ds.append([video_name, url, loadedImage])
+ 
+for (video_name, url, loadedImage) in ds: 
   st.subheader(video_name)
   col1, col2, col3 = st.columns(3)
   with col1:
