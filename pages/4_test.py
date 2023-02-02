@@ -14,10 +14,11 @@ def get_frame_from_url(url):
       if cv2.waitKey(1) & 0xFF == ord('q'):
           break
       break
+  cap.release()
+  cv2.destroyAllWindows()
   return loadedImage
 
-cap.release()
-cv2.destroyAllWindows()
+
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds)
