@@ -34,7 +34,7 @@ st.text(date_input)
 
 for doc in collection.stream():
   doc_id = doc.id
-  st.text(f'date input: {date_input.split("-")}')
+  st.text(f'date input: {str(date_input).split("-")}')
   st.text(f'doc id: {doc_id.split("_")[:3]}')
-  if date_input.split('-') == doc_id.split('_')[:3]:
+  if str(date_input).split('-') == doc_id.split('_')[:3]:
     st.text('SAME')    
