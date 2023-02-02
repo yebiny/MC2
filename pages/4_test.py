@@ -42,12 +42,8 @@ for doc in collection.stream():
   started = True
   url = doc.to_dict()["URL"]
   video_img = get_frame_from_url(url)
-  st.text(f'### {h}시 {mi}분 {se}초')
-  
-  c1,c2 = st.columns(2)
-  while c1:
-    st.image(video_img)
-  while c2:
-    if st.button('플레이', key=url):
-      st.text('동영상 넣기')
+  st.caption(f'{h}시 {mi}분 {se}초')
+  st.image(video_img)
+  if st.button('플레이', key=url):
+    st.text('동영상 넣기')
     
