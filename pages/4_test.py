@@ -12,6 +12,7 @@ def get_frame_from_url(url):
   while True:
       ret, frame = cap.read()  
       if frame is not None:
+        frame = cv2.resize(frame, (300, 200))
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         loadedImage = frame
       break
