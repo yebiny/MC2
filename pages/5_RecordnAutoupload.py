@@ -169,7 +169,7 @@ html = '''
           model.detect(previewPlayer).then((predictions) => {
             window.requestAnimationFrame(predictWebcam);
             for (let i = 0; i < predictions.length; i++) {
-              if (predictions[i].class == 'cat'){
+              if (predictions[i].class == 'cup'){
                 if (isRecord == false){
                   isRecord=true;
                   recordStart();
