@@ -12,6 +12,7 @@ def get_frame_from_url(url):
   while True:
       ret, frame = cap.read()  
       if frame is not None:
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         loadedImage = frame
       break
         
@@ -30,8 +31,6 @@ for doc in collection.stream():
   video_name = post['File_title']
   url = post['URL']
   loadedImage = get_frame_from_url(url)
- 
   st.subheader(video_name)
-  st.text(loadedImage)
   if loadedImage is not None:
     st.image(loadedImage)
