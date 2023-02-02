@@ -33,24 +33,9 @@ date_input = st.date_input(
     "영상을 불러올 날짜를 선택하세요.",
     datetime.date(2023, 1, 1))
 
-start_date = False
-for doc in collection.stream():
-  docId = doc.id()
-  if date_input.split('-') == docId.split('_')[:3]: 
-    url = post['URL']
-    st.text(url)
-  #loadedImage = get_frame_from_url(url)
-  
+doc1 = collection.document("2023_02_02_22_18_05").get()
+st.write("The id is: ", doc1.id)
 
-col1, col2, col3 = st.columns(3)
-with col1:
-  st.text("장소:")
-with col2:
-  st.text('이미지')
-  #if loadedImage is not None:
-  #  st.image(loadedImage)
-with col3:
-  if st.button('Play', key=video_name):
-    st.write('play!')
 
-    
+doc2 = collection.document("2023_02_02*").get()
+st.write("The id is: ", doc2.id)
