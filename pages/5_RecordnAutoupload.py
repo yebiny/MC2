@@ -227,10 +227,10 @@ html = '''
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name);
             snapshot.ref.getDownloadURL().then(function(downloadURL){
-              console.log(url)
+              console.log(downloadURL);
               db.collection(userId).doc(f_name).set({
                 File_title: f_name+".mp4",
-                URL : snapshot.ref.getDownloadURL()
+                URL : downloadURL
               });
             
             });
