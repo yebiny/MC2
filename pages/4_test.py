@@ -20,7 +20,4 @@ doc = doc_ref.get()
 
 # Let's see what we got!
 st.write("The id is: ", doc.id)
-st.write("The contents are: ", doc.to_dict())(
-
-
-
+st.write("The contents are: ", doc.to_dict())
