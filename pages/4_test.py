@@ -1,4 +1,4 @@
-import urllib.request
+from streamlit_player import st_player
 import streamlit as st
 from google.cloud import firestore
 from google.oauth2 import service_account
