@@ -132,7 +132,7 @@ html = '''
             measurementId: "G-0TW1LT9P1L"
             };
         firebase.initializeApp(firebaseConfig);
-        var db = firebase.database();
+        var db = firebase.firestore();
         var storage = firebase.storage();
     
         // Buttons
@@ -222,7 +222,7 @@ html = '''
           videoRef.put(recordedBlob).then(function(snapshot) {
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name);
-            console.log(db.ref("user001"))
+            console.log(db.collection("user001").get())
             //db.collection('user001').add({
             //  Test: "test!",
             //  File_title: f_name
