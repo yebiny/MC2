@@ -172,7 +172,7 @@ html = '''
           model.detect(previewPlayer).then((predictions) => {
             window.requestAnimationFrame(predictWebcam);
             for (let i = 0; i < predictions.length; i++) {
-              if (predictions[i].class == 'cup'){
+              if (predictions[i].class == 'cat'){
                 if (isRecord == false){
                   isRecord=true;
                   recordStart();
@@ -230,7 +230,8 @@ html = '''
               console.log(downloadURL);
               db.collection(userId).doc(f_name).set({
                 File_title: f_name+".mp4",
-                URL : downloadURL
+                URL : downloadURL,
+                Analysis: "False"
               });
             
             });
