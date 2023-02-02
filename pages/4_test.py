@@ -41,7 +41,7 @@ for doc in collection.stream():
     if loadedImage is not None:
       st.image(loadedImage)
   with col3:
-    if button('Play'):
+    if st.button('Play'):
       st.write('play!')
 
     
