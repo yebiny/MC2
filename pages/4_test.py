@@ -37,7 +37,7 @@ y, m, d = st.date_input(
 start_date = False
 for doc in collection.stream():
   docId = doc.id()
-  if (y, m, d) == docId[:3]: 
+  if [y, m, d] == docId.split('-'): 
     url = post['URL']
     st.text(url)
   #loadedImage = get_frame_from_url(url)
