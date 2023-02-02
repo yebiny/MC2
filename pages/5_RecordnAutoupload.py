@@ -210,10 +210,10 @@ html = '''
           year = date.getFullYear();
           month = date.getMonth() + 1;
           month = month.toString().padStart(2, '0');
-          day = date.getDate();
-          hours = date.getHours();
-          minutes = date.getMinutes();
-          seconds = date.getSeconds();
+          day = date.getDate().toString().padStart(2, '0');
+          hours = date.getHours().toString().padStart(2, '0');
+          minutes = date.getMinutes().toString().padStart(2, '0');
+          seconds = date.getSeconds().toString().padStart(2, '0');
           f_name = year + "_" + month +"_"+ day +"_"+ hours +"_"+ minutes +"_"+ seconds;
 
           const videoRef = storageRef.child("Videos/"+f_name+".mp4");
