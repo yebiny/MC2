@@ -134,7 +134,8 @@ html = '''
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
         var storage = firebase.storage();
-    
+        const userId = "user001"
+        
         // Buttons
         const startButton = document.querySelector(".start-button");
         const downloadButton = document.querySelector(".download-button");
@@ -223,7 +224,7 @@ html = '''
           videoRef.put(recordedBlob).then(function(snapshot) {
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name);
-            //console.log(db.collection("user001").get())
+            //console.log(db.collection(userId).get())
             db.collection('user001').doc(f_name).set({
               File_title: f_name+".mp4",
               URL : recordingPlayer.src
