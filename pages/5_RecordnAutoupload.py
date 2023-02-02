@@ -118,28 +118,23 @@ html = '''
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <script>
-    var firebaseConfig = {
-    apiKey: "AIzaSyDR-lK8nCXU9O9yKadZ4U2i91hdqeguFSg",
-    authDomain: "monchaton2022-32941.firebaseapp.com",
-    projectId: "monchaton2022-32941",
-    storageBucket: "monchaton2022-32941.appspot.com",
-    messagingSenderId: "1054856820567",
-    appId: "1:1054856820567:web:130b1b535556a94e637012",
-    measurementId: "G-0TW1LT9P1L"
-    };
-    firebase.initializeApp(firebaseConfig);
-
-    var db = firebase.firestore();
-    var storage = firebase.storage();
-    </script>
-
-    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDR-lK8nCXU9O9yKadZ4U2i91hdqeguFSg",
+            authDomain: "monchaton2022-32941.firebaseapp.com",
+            projectId: "monchaton2022-32941",
+            storageBucket: "monchaton2022-32941.appspot.com",
+            messagingSenderId: "1054856820567",
+            appId: "1:1054856820567:web:130b1b535556a94e637012",
+            measurementId: "G-0TW1LT9P1L"
+            };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+        var storage = firebase.storage();
+    
         // Buttons
         const startButton = document.querySelector(".start-button");
         const downloadButton = document.querySelector(".download-button");
@@ -162,7 +157,7 @@ html = '''
             console.log('loaded model!');
           });
           navigator.mediaDevices
-            .getUserMedia({ video: true, audio: true })
+            .getUserMedia({ video: true, audio: false })
             .then((stream) => {
               previewPlayer.srcObject = stream;
               previewPlayer.addEventListener('loadeddata', predictWebcam);  
