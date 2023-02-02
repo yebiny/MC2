@@ -219,10 +219,10 @@ html = '''
           const recordedBlob = new Blob(recordedChunks, { type: "video/mp4" });
           recordingPlayer.src = URL.createObjectURL(recordedBlob);
 
-          //recordingPlayer.play();
           videoRef.put(recordedBlob).then(function(snapshot) {
             console.log("Uploaded video" + snapshot.totalBytes + " bytes");
             console.log(f_name)
+            console.log(db.collection('users'))
           });
 
         }
