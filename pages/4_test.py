@@ -30,11 +30,11 @@ st.title('저장된 영상 플레이')
 date_input = st.date_input(
     "영상을 불러올 날짜를 선택하세요.",
     datetime.date(2023, 1, 1))
-st.text(date_input)
 
-for doc in collection.stream():
-  doc_id = doc.id
-  st.text(f'date input: {str(date_input).split("-")}')
-  st.text(f'doc id: {doc_id.split("_")[:3]}')
-  if str(date_input).split('-') == doc_id.split('_')[:3]:
-    st.text('SAME')    
+if st.button("불러오기"):
+  for doc in collection.stream():
+    y, m, d, h, mi, se = doc.id.split('_')
+    if str(date_input).split('-') == [y, m, d]:
+      url = doc.to_dict()["URL"]
+      st.subhead(f'{h}시 {mi}분 {se}초')
+      st.text(url)
