@@ -30,6 +30,7 @@ st.title('저장된 영상 플레이')
 date_input = st.date_input(
     "영상을 불러올 날짜를 선택하세요.",
     datetime.date(2023, 1, 1))
+st.text(date_input)
 
 for doc in collection.stream():
   doc_id = doc.id
