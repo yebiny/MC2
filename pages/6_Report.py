@@ -88,7 +88,7 @@ def main():
     
     with st.expander("See explanation"):
       st.markdown(f'''
-        ##### {y}sus {m}월 {d}일
+        ##### {y} {m}월 {d}일
         ''')
       for (h, mi, se, url, analyzed) in ds:
         st.write(f'{h}시 {mi}분 {se}초')
