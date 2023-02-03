@@ -79,10 +79,10 @@ def main():
         ds.append([h, mi, se, url, analyzed])
         
     with st.expander("See explanation"):
-      st.write(f'''
-        {y}sus {m}월 {d}일
+      st.markdown(f'''
+        ##### {y}sus {m}월 {d}일
         ''')
-      for d in ds:
+      for (h, mi, se, url, analyzed) in ds:
         st.write(f'{h}시 {mi}분 {se}초')
         st.text(f'분석: {analyzed}')
         st.button('다운로드', key=url)
