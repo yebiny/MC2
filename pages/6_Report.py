@@ -85,7 +85,8 @@ def main():
       for d in ds:
         st.write(f'{h}시 {mi}분 {se}초')
         st.text(f'분석: {analyzed}')
-        st.button('다운로드')
+        st.button('다운로드', key=url)
+    
     
     
     if st.button('분석 시작'):
