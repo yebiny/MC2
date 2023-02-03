@@ -88,12 +88,6 @@ def main():
         for idx, (h, mi, se, url, analyzed) in enumerate(ds):
             video_info = get_video_info(url)
             st.write(video_info)
-            tmp = f'./tmp-videos/tmp_{idx}.mp4'
-            cvt = f'./tmp-videos/cvt_{idx}.mp4'
-            detect_video(model, video_info, tmp)
-            subprocess.call(args=f"ffmpeg -y -i {tmp} -c:v libx264 {cvt}".split(" "), shell=True)
-
-            st.video(cvt)
     
 
     
