@@ -58,8 +58,8 @@ def main():
     
     
     st.title('리포트')
-    y, m, d = 2023, 2, 1
-    date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(y, m, d) )
+    select_y, select_m, select_d = 2023, 2, 1
+    date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(select_y, select_m, select_d) )
     select_y, select_m, select_d = str(date_input).split('-') 
 
     ds = []
@@ -76,6 +76,7 @@ def main():
 
     with st.expander("See explanation"):
       st.markdown(f'''
+        ##### {select_y} {select_m}월 {select_d}일
         ##### {y} {m}월 {d}일
         ''')
       for (h, mi, se, url, analyzed) in ds:
