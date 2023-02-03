@@ -78,6 +78,14 @@ def main():
         analyzed = doc.to_dict()["Analysis"]
         ds.append([h, mi, se, url, analyzed])
         
+        if st.button('분석 시작'):
+            for (h, mi, se, url, analyzed) in ds:
+                video_info = get_video_info(url)
+                st.write(url, video_info)
+                #detect_video( model, video_info, tmp_result)
+                #subprocess.call(args=f"ffmpeg -y -i {tmp_result} -c:v libx264 {tmp_result_cvt}".split(" "), shell=True)
+                #st.video(tmp_result_cvt)
+    
     with st.expander("See explanation"):
       st.markdown(f'''
         ##### {y}sus {m}월 {d}일
@@ -87,13 +95,7 @@ def main():
         st.text(f'분석: {analyzed}')
  
     
-    if st.button('분석 시작'):
-        for (h, mi, se, url, analyzed) in ds:
-            video_info = get_video_info(url)
-            st.write(url, video_info)
-            #detect_video( model, video_info, tmp_result)
-            #subprocess.call(args=f"ffmpeg -y -i {tmp_result} -c:v libx264 {tmp_result_cvt}".split(" "), shell=True)
-            #st.video(tmp_result_cvt)
+
 
 
 if __name__ == '__main__':
