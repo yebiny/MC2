@@ -85,8 +85,13 @@ def main():
       for (h, mi, se, url, analyzed) in ds:
         st.write(f'{h}시 {mi}분 {se}초')
         st.text(f'분석: {analyzed}')
-        st.button('다운로드', key=url)
-    
+        
+        with open(url, "rb") as file:
+            btn = st.download_button(
+                    label="Download image",
+                    data=file,
+                    file_name=f"{y}{m}{d}_{h}{mi}{sec}.mp4",
+                  )    
     
     
     if st.button('분석 시작'):
