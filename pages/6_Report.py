@@ -77,8 +77,8 @@ def main():
     with st.expander("See explanation"):
       st.markdown(f'''
         ##### {select_y} {select_m}월 {select_d}일
-        ##### {y} {m}월 {d}일
         ''')
+    
       for (h, mi, se, url, analyzed) in ds:
         st.write(f'{h}시 {mi}분 {se}초')
         st.text(f'분석: {analyzed}')
