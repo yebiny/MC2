@@ -90,3 +90,9 @@ def main(tmp_save, tmp_save_cvt, tmp_result, tmp_result_cvt):
         st.video(tmp_result_cvt)
 
 
+if __name__ == '__main__':
+    tmp_save = './tmp-videos/tmp_1.mp4'
+    tmp_save_cvt = './tmp-videos/tmp_2.mp4'
+    tmp_result  = './tmp-videos/tmp_3.mp4'
+    tmp_result_cvt  = './tmp-videos/tmp_4.mp4'
+    main(tmp_save, tmp_save_cvt, tmp_result, tmp_result_cvt)
