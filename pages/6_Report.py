@@ -85,19 +85,15 @@ def main():
       for (h, mi, se, url, analyzed) in ds:
         st.write(f'{h}시 {mi}분 {se}초')
         st.text(f'분석: {analyzed}')
-        
-        with open(url, "rb") as file:
-            btn = st.download_button(
-                    label="Download image",
-                    data=file,
-                    file_name=f"{y}{m}{d}_{h}{mi}{sec}.mp4",
-                  )    
-    
+ 
     
     if st.button('분석 시작'):
-        detect_video( model, video_info, tmp_result)
-        subprocess.call(args=f"ffmpeg -y -i {tmp_result} -c:v libx264 {tmp_result_cvt}".split(" "), shell=True)
-        st.video(tmp_result_cvt)
+        for (h, mi, se, url, analyzed) in ds:
+            video_info = get_video_info(url)
+            st.write(url, video_info)
+            #detect_video( model, video_info, tmp_result)
+            #subprocess.call(args=f"ffmpeg -y -i {tmp_result} -c:v libx264 {tmp_result_cvt}".split(" "), shell=True)
+            #st.video(tmp_result_cvt)
 
 
 if __name__ == '__main__':
