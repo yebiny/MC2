@@ -59,8 +59,8 @@ def main():
     
     st.title('리포트')
     y, m, d = 2023, 2, 1
-    data_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(y, m, d) )
-    if data_input:
+    date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(y, m, d) )
+    if date_input:
         ds = []
         started = False
         for doc in collection.stream():
