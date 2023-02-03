@@ -60,26 +60,25 @@ def main():
     st.title('리포트')
     y, m, d = 2023, 2, 1
     date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(y, m, d) )
-    if date_input:
-        ds = []
-        started = False
-        for doc in collection.stream():
-            y, m, d, h, mi, se = doc.id.split('_')
-            if str(date_input).split('-') != [y, m, d]: 
-                if started: break
-                else: continue
-            started = True
-            url = doc.to_dict()["URL"]
-            analyzed = doc.to_dict()["Analysis"]
-            ds.append([h, mi, se, url, analyzed])
-      
-        with st.expander("See explanation"):
-          st.markdown(f'''
-            ##### {y} {m}월 {d}일
-            ''')
-          for (h, mi, se, url, analyzed) in ds:
-            st.write(f'{h}시 {mi}분 {se}초')
-            st.text(f'분석: {analyzed}')
+    ds = []
+    started = False
+    for doc in collection.stream():
+        y, m, d, h, mi, se = doc.id.split('_')
+        if str(date_input).split('-') != [y, m, d]: 
+            if started: break
+            else: continue
+        started = True
+        url = doc.to_dict()["URL"]
+        analyzed = doc.to_dict()["Analysis"]
+        ds.append([h, mi, se, url, analyzed])
+
+    with st.expander("See explanation"):
+      st.markdown(f'''
+        ##### {y} {m}월 {d}일
+        ''')
+      for (h, mi, se, url, analyzed) in ds:
+        st.write(f'{h}시 {mi}분 {se}초')
+        st.text(f'분석: {analyzed}')
      
         
     if st.button('분석 시작'):
