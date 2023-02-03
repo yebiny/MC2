@@ -58,9 +58,10 @@ def main():
     
     
     st.title('리포트')
+    y, m, d = 2023, 2, 1
     date_input = st.date_input(
         "분석할 날짜를 선택하세요.",
-        datetime.date(2023, 2, 1))
+        datetime.date(y, m, d))
     
     ds = []
     if st.button("가져오기"):
