@@ -60,13 +60,13 @@ def main():
     st.title('리포트')
     y, m, d = 2023, 2, 1
     date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(y, m, d) )
-    y, m, d = str(date_input).split('-') 
+    select_y, select_m, select_d = str(date_input).split('-') 
 
     ds = []
     started = False
     for doc in collection.stream():
         y, m, d, h, mi, se = doc.id.split('_')
-        if str(date_input).split('-') != [y, m, d]: 
+        if [select_y, select_m, select_d] != [y, m, d]: 
             if started: break
             else: continue
         started = True
