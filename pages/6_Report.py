@@ -85,12 +85,12 @@ def main():
      
         
     if st.button('분석 시작'):
-        for (h, mi, se, url, analyzed) in ds:
+        for idx, (h, mi, se, url, analyzed) in enumerate(ds):
             video_info = get_video_info(url)
-            st.write(url, video_info)
-            #detect_video( model, video_info, tmp_result)
-            #subprocess.call(args=f"ffmpeg -y -i {tmp_result} -c:v libx264 {tmp_result_cvt}".split(" "), shell=True)
-            #st.video(tmp_result_cvt)
+            st.write(video_info)
+            tmp = f'./tmp-videos/test_{idx}.mp3'
+            detect_video(model, video_info, tmp)
+            st.video(tmp)
     
 
     
