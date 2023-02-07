@@ -97,10 +97,12 @@ def main():
 
     if bool(doc_list):      
         for doc in doc_list:
+            if analyze_button: analysis_process(doc, collection, model)     
             doc_id = doc.id
             h, mi, se = doc.id.split('_')[-3:]
             analyzed = doc.to_dict()["Analysis"]
-            c1, c2, c3 = st.columns(3)
+            
+	        c1, c2, c3 = st.columns(3)
             with c1:
                 st.write(f'- {h}시 {mi}분 {se}초')
             with c2:
@@ -109,11 +111,6 @@ def main():
             with c3:
                 if st.button('영상 플레이', key=doc_id):
                     target = doc.to_dict()['URL']
-
-    if analyze_button: 
-        for doc in doc_list:
-            analysis_process(doc, collection, model)
-            analyzed = doc.to_dict()["Analysis"]
 
 
 		
