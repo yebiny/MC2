@@ -51,23 +51,23 @@ def analysis_process(doc, collection, model):
 		"Analysis": "True",
 		"URL": doc.to_dict()['URL']
 	})      
+    
 
 def display_list(doc_list):
-    if bool(doc_list):
-        for doc in doc_list:
-            doc_id = doc.id
-            h, mi, se = doc.id.split('_')[-3:]
-            analyzed = doc.to_dict()["Analysis"]
+    for doc in doc_list:
+        doc_id = doc.id
+        h, mi, se = doc.id.split('_')[-3:]
+        analyzed = doc.to_dict()["Analysis"]
 
-            c1, c2 = st.columns(2)
-            with c1:
-                st.write(f'- {h}시 {mi}분 {se}초')
-            #with c2:
-            #    if eval(analyzed):  st.write('분석 완료')
-            #    else: st.write(f'분석 전')
-            with c2:
-                if st.button('영상 플레이', key=doc_id):
-                    target = doc.to_dict()['URL']
+        c1, c2 = st.columns(2)
+        with c1:
+            st.write(f'- {h}시 {mi}분 {se}초')
+        #with c2:
+        #    if eval(analyzed):  st.write('분석 완료')
+        #    else: st.write(f'분석 전')
+        with c2:
+            if st.button('영상 플레이', key=doc_id):
+                target = doc.to_dict()['URL']
 
 def main():
     
@@ -107,20 +107,20 @@ def main():
     ## 2. 분석하기 버튼을 누르면 분석 시작
     ## 3. 분석 완료된 영상은 플레이 버튼 생성   
     
-    if eval(analyzed): anal_text='분석 완료'
-    else: anal_text='분석 전'
-    st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
-    
-    c_but, c_p = st.columns(2)
-    with c_but: analyze_button = st.button("분석하기")            
-    with c_p: p = st.progress(0)
-    display_list(doc_list)
-    
+    if bool(doc_list):
+        if eval(analyzed): anal_text='분석 완료'
+        else: anal_text='분석 전'
+        st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
 
-    if analyze_button and bool(doc_list): 
-        for i, doc in enumerate(doc_list):
-            p.progress(int(((i+1)/len(doc_list))*100))
-            analysis_process(doc, collection, model)   
+        c_but, c_p = st.columns(2)
+        with c_but: analyze_button = st.button("분석하기")            
+        with c_p: p = st.progress(0)
+        display_list(doc_list)
+
+        if analyze_button: 
+            for i, doc in enumerate(doc_list):
+                p.progress(int(((i+1)/len(doc_list))*100))
+                analysis_process(doc, collection, model)   
     
 if __name__ == '__main__':
     main()
