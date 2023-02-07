@@ -62,12 +62,9 @@ def display_list(doc_list):
         c1, c2 = st.columns(2)
         with c1:
             st.write(f'- {h}시 {mi}분 {se}초')
-        #with c2:
-        #    if eval(analyzed):  st.write('분석 완료')
-        #    else: st.write(f'분석 전')
         with c2:
             if st.button('영상 플레이', key=doc_id):
-                target = doc.to_dict()['URL']
+                target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
 
 def main():
     
@@ -81,15 +78,19 @@ def main():
     model = load_model(model_path)
     
     
+    # 변수 
+    ds = []
+    save_path = None
+    started = False
+    target_video = None
+    
     # 날짜 선택
     st.title('리포트')
     select_y, select_m, select_d = 2023, 2, 1
     date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(select_y, select_m, select_d) )
     select_y, select_m, select_d = str(date_input).split('-') 
 
-    ds = []
-    save_path = None
-    started = False
+
     
     # 선택한 날짜에 해당하는 doc 가져오기
     doc_list = []
@@ -121,7 +122,8 @@ def main():
                     analysis_process(doc, collection, model)   
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
-
+    if target_video is not None:               
+        st.video(target_video)
     
 if __name__ == '__main__':
     main()
