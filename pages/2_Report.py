@@ -109,8 +109,8 @@ def main():
         with c3:
             if st.button('영상 플레이', key=doc_id):
                 target = doc.to_dict()['URL']
-    
-    if analyze_button:
+
+	if analyze_button:
 		for doc in doc_list:
 			analysis_process(doc, collection, model)
 		
