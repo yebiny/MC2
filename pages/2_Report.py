@@ -89,13 +89,9 @@ def main():
             if st.button('영상 플레이', key=doc_id):
                 target_url = url
                 save_path = f'./tmp-videos/{doc_id}.mp4'
-                
-                
-        
-     
-    
+
     if save_path is not None:
-        cvt_path = save_path.replace('.mp5', '-cvt.mp4')
+        cvt_path = save_path.replace('.mp4', '-cvt.mp4')
         video_info = get_video_info(target_url)
         detect_video( model, video_info, save_path)
         subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
