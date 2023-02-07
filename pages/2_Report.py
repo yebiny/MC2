@@ -53,19 +53,9 @@ def analysis_process(doc, collection, model):
 	})      
     
 
-def display_list(doc_list):
-    for doc in doc_list:
-        doc_id = doc.id
-        h, mi, se = doc.id.split('_')[-3:]
-        analyzed = doc.to_dict()["Analysis"]
 
-        c1, c2 = st.columns(2)
-        with c1:
-            st.write(f'- {h}시 {mi}분 {se}초')
-        with c2:
-            if st.button('영상 플레이', key=doc_id):
-                target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
 
+    
 def main():
     
     # 파이어베이스 db에서 정보 가져오기
@@ -113,7 +103,17 @@ def main():
         c_but, c_p = st.columns(2)
         with c_but: analyze_button = st.button("분석하기")            
         with c_p: p = st.progress(0)
-        display_list(doc_list)
+        for doc in doc_list:
+            doc_id = doc.id
+            h, mi, se = doc.id.split('_')[-3:]
+            analyzed = doc.to_dict()["Analysis"]
+
+            c1, c2 = st.columns(2)
+            with c1:
+                st.write(f'- {h}시 {mi}분 {se}초')
+            with c2:
+                if st.button('영상 플레이', key=doc_id):
+                    target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
 
 	# 분석 버튼 누르면 분석 진행
         if analyze_button: 
