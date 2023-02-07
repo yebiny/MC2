@@ -28,7 +28,7 @@ def detect_video(model, video_info, save_path):
     fourcc_mp4 = cv2.VideoWriter_fourcc(*'mp4v')
     out_mp4 = cv2.VideoWriter(save_path, fourcc_mp4, fps, (w, h))
    
-
+    i=0
     while True:
         ret, frame = cap.read()
         if not ret: break
@@ -39,7 +39,8 @@ def detect_video(model, video_info, save_path):
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) 
         frame = visualize(frame, detections)
         out_mp4.write(frame)
-        
+        i+=1
+	
 def analysis_process(doc, collection, model):	
 	save_path = f'./tmp-videos/{doc.id}.mp4'
 	cvt_path = save_path.replace('.mp4', '-cvt.mp4')
