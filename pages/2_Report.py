@@ -89,8 +89,10 @@ def main():
             video_info = get_video_info(url)
             st.write(video_info)
         save_path = './tmp-videos/tmp.mp4'
+        cvt_path = './tmp-videos/cvt.mp4'
         detect_video( model, video_info, save_path)
-        st.video(save_path)    
+        subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+        st.video(cvt_path)    
 
     
 
