@@ -108,8 +108,8 @@ def main():
             subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
             st.text(f'{doc.id} 완료')
 	    collection.document(doc.id).set({
-		        "Analysis": "True",
-		        "URL": url
+		"Analysis": "True",
+		"URL": url
 	    })
 
 
