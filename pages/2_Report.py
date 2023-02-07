@@ -78,16 +78,17 @@ def main():
     if bool(ds):    
       for (doc_id, h, mi, se, url, analyzed) in ds:
         c1, c2 = st.columns(2)
-        st.write(analyzed)
+        st.write(doc_id)
         with c1:
-            if eval(analyzed): st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
-            else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 완료')
+            if eval(analyzed): st.write(f'- {h}시 {mi}분 {se}초 : 분석 완료')
+            else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
         with c2:
-            st.button('영상 플레이', key=doc_id)
-
+            if st.button('영상 플레이', key=doc_id):
+                save_path = './tmp-videos/{doc_id}.mp4'
+                
         
-    
-    
+      st.write(save_path)
+        
 
 
         #video_info = get_video_info(url)
