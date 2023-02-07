@@ -81,9 +81,10 @@ def main():
     ## 1. 목록을 나열한다.
     ## 2. 분석하기 버튼을 누르면 분석 시작
     ## 3. 분석 완료된 영상은 플레이 버튼 생성   
-    
+   
+    analyze_button = st.button("분석하기")
+
     if bool(doc_list):
-      analyze_button = st.button("분석하기")
       for doc in doc_list:
         doc_id = doc.id
         h, mi, se = doc.id.split('_')[-3:]
@@ -99,7 +100,7 @@ def main():
             if st.button('영상 플레이', key=doc_id):
                 target = doc.to_dict()['URL']
     
-    if st.button('분석하기'):
+    if analyze_button:
         for doc in doc_list:
             save_path = f'./tmp-videos/{doc.id}.mp4'
             cvt_path = save_path.replace('.mp4', '-cvt.mp4')
