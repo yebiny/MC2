@@ -147,7 +147,7 @@ html = '''
 
         // 변수 선언
         const recordImg = document.getElementById('record-img');
-        const recordingDuration = 39000; //30 sec
+        const recordingDuration = 10000; //10 sec
         let recorder;
         let recordedChunks;
         var isRecord = false;
