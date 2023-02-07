@@ -63,6 +63,7 @@ def main():
     select_y, select_m, select_d = str(date_input).split('-') 
 
     ds = []
+    target_url = None
     save_path = None
     started = False
     for doc in collection.stream():
@@ -86,20 +87,19 @@ def main():
             else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
         with c2:
             if st.button('영상 플레이', key=doc_id):
-                save_path = './tmp-videos/{doc_id}.mp4'
+                target_url = url
+                save_path = f'./tmp-videos/{doc_id}.mp4'
+                
                 
         
      
     
     if save_path is not None:
-        st.write(save_path)
-        
-
-
-        #video_info = get_video_info(url)
-        #detect_video( model, video_info, save_path)
-        #subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
-        #st.video(cvt_path)
+        cvt_path = save_path.replace('.mp5', '-cvt.mp4')
+        video_info = get_video_info(target_url)
+        detect_video( model, video_info, save_path)
+        subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+        st.video(cvt_path)
     
 
 
