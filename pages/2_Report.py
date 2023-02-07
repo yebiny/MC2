@@ -107,9 +107,9 @@ def main():
     ## 2. 분석하기 버튼을 누르면 분석 시작
     ## 3. 분석 완료된 영상은 플레이 버튼 생성   
     
-    if eval(analyzed):  st.write('분석 완료')
-    else: st.write(f'분석 전')
-    st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {analyzed} ]')
+    if eval(analyzed): anal_text='분석 완료'
+    else: anal_text='분석 전'
+    st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
     
     c_but, c_p = st.columns(2)
     with c_but: analyze_button = st.button("분석하기")            
