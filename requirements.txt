@@ -35,7 +35,6 @@ esprima==4.0.1
 et-xmlfile==1.0.1
 etils==1.0.0
 exceptiongroup==1.1.0
-ffmpeg==1.4
 ffmpeg-python
 fire==0.5.0
 flatbuffers==2.0
