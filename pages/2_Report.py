@@ -57,6 +57,7 @@ def main():
     model = load_model(model_path)
     
     
+    # 날짜 선택
     st.title('리포트')
     select_y, select_m, select_d = 2023, 2, 1
     date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(select_y, select_m, select_d) )
@@ -66,21 +67,31 @@ def main():
     target_url = None
     save_path = None
     started = False
+    
+    # 선택한 날짜에 해당하는 doc 가져오기
+    doc_list = []
     for doc in collection.stream():
-        y, m, d, h, mi, se = doc.id.split('_')
-        if [select_y, select_m, select_d] != [y, m, d]: 
+        if [select_y, select_m, select_d] != doc.id.split('_')[:3]: 
             if started: break
             else: continue
         started = True
+        doc_list.append(doc)
+
+    
+    # 해당 날짜 doc에 정보가 있으면
+    ## 1. 목록을 나열한다.
+    ## 2. 분석하기 버튼을 누르면 분석 시작
+    ## 3. 분석 완료된 영상은 플레이 버튼 생성   
+    
+    if bool(doc_list):
+      analyze_button = st.button("분석하기")
+      for doc in doc_list:
+        doc_id = doc.id
+        h, mi, se = doc.id.split('_')[-3:]
         url = doc.to_dict()["URL"]
         analyzed = doc.to_dict()["Analysis"]
-        ds.append([doc.id, h, mi, se, url, analyzed])
-
         
-    # 해당 날짜 영상이 있으면
-    if bool(ds):    
-      for (doc_id, h, mi, se, url, analyzed) in ds:
-        c1, c2 = st.columns(2)
+        c1, c2, c3 = st.columns(3)
         with c1:
             if eval(analyzed): st.write(f'- {h}시 {mi}분 {se}초 : 분석 완료')
             else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
@@ -88,7 +99,9 @@ def main():
             if st.button('영상 플레이', key=doc_id):
                 target_url = url
                 save_path = f'./tmp-videos/{doc_id}.mp4'
-
+    
+    
+    
     if save_path is not None:
         cvt_path = save_path.replace('.mp4', '-cvt.mp4')
         #video_info = get_video_info(target_url)
