@@ -81,7 +81,6 @@ def main():
     if bool(ds):    
       for (doc_id, h, mi, se, url, analyzed) in ds:
         c1, c2 = st.columns(2)
-        st.write(doc_id)
         with c1:
             if eval(analyzed): st.write(f'- {h}시 {mi}분 {se}초 : 분석 완료')
             else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
@@ -92,9 +91,9 @@ def main():
 
     if save_path is not None:
         cvt_path = save_path.replace('.mp4', '-cvt.mp4')
-        video_info = get_video_info(target_url)
-        detect_video( model, video_info, save_path)
-        subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+        #video_info = get_video_info(target_url)
+        #detect_video( model, video_info, save_path)
+        #subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
         st.video(cvt_path)
     
 
