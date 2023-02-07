@@ -94,21 +94,22 @@ def main():
    
     analyze_button = st.button("분석하기")
 
-    if bool(doc_list):
-      for doc in doc_list:
-        doc_id = doc.id
-        h, mi, se = doc.id.split('_')[-3:]
-        analyzed = doc.to_dict()["Analysis"]
-        
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            st.write(f'- {h}시 {mi}분 {se}초')
-        with c2:
-            if eval(analyzed):  st.write('상태: 분석 완료')
-            else: st.write('상태: 분석 전')
-        with c3:
-            if st.button('영상 플레이', key=doc_id):
-                target = doc.to_dict()['URL']
+    if bool(doc_list):      
+        for doc in doc_list:
+            if analyze_button: analysis_process(doc, collection, model)
+
+            doc_id = doc.id
+            h, mi, se = doc.id.split('_')[-3:]
+            analyzed = doc.to_dict()["Analysis"]
+            c1, c2, c3 = st.columns(3)
+            with c1:
+                st.write(f'- {h}시 {mi}분 {se}초')
+            with c2:
+                if eval(analyzed):  st.write('상태: 분석 완료')
+                else: st.write('상태: 분석 전')
+            with c3:
+                if st.button('영상 플레이', key=doc_id):
+                    target = doc.to_dict()['URL']
 
     if analyze_button:
         for doc in doc_list:
