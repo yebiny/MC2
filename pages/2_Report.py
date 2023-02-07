@@ -102,10 +102,7 @@ def main():
         analyzed = doc.to_dict()["Analysis"]
 
     
-    # 해당 날짜 doc에 정보가 있으면
-    ## 1. 목록을 나열한다.
-    ## 2. 분석하기 버튼을 누르면 분석 시작
-    ## 3. 분석 완료된 영상은 플레이 버튼 생성   
+    # 해당 날짜 doc에 정보가 있으면 목록생성
     
     if bool(doc_list):
         if eval(analyzed): anal_text='분석 완료'
@@ -117,10 +114,14 @@ def main():
         with c_p: p = st.progress(0)
         display_list(doc_list)
 
+	# 분석 버튼 누르면 분석 진행
         if analyze_button: 
             for i, doc in enumerate(doc_list):
+                if not eval(doc.to_dict()["Analysis"]):
+                    analysis_process(doc, collection, model)   
                 p.progress(int(((i+1)/len(doc_list))*100))
-                analysis_process(doc, collection, model)   
+                
+
     
 if __name__ == '__main__':
     main()
