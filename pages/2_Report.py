@@ -106,10 +106,12 @@ def main():
     ## 1. 목록을 나열한다.
     ## 2. 분석하기 버튼을 누르면 분석 시작
     ## 3. 분석 완료된 영상은 플레이 버튼 생성   
-   
-    c_text, c_but, c_p = st.columns(3)
-    with c_text:
-        st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [{analyzed}]')
+    
+    if eval(analyzed):  st.write('분석 완료')
+    else: st.write(f'분석 전')
+    st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {analyzed} ]')
+    
+    c_but, c_p = st.columns(2)
     with c_but: analyze_button = st.button("분석하기")            
     with c_p: p = st.progress(0)
     display_list(doc_list)
