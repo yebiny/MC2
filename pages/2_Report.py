@@ -99,6 +99,7 @@ def main():
             else: continue
         started = True
         doc_list.append(doc)
+        analyzed = doc.to_dict()["Analysis"]
 
     
     # 해당 날짜 doc에 정보가 있으면
@@ -106,7 +107,9 @@ def main():
     ## 2. 분석하기 버튼을 누르면 분석 시작
     ## 3. 분석 완료된 영상은 플레이 버튼 생성   
    
-    c_but, c_p = st.columns(2)
+    c_text, c_but, c_p = st.columns(3)
+    with c_text:
+        st.subtitle(f'{select_y}년 {select_m}월 {select_d}일 [{analyzed}]')
     with c_but: analyze_button = st.button("분석하기")            
     with c_p: p = st.progress(0)
     display_list(doc_list)
@@ -114,7 +117,7 @@ def main():
 
     if analyze_button and bool(doc_list): 
         for i, doc in enumerate(doc_list):
-            p.progress(int((i/len(doc_list))*100))
+            p.progress(int(((i+1)/len(doc_list))*100))
             analysis_process(doc, collection, model)   
     
 if __name__ == '__main__':
