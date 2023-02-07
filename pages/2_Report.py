@@ -107,9 +107,9 @@ def main():
             detect_video( model, video_info, save_path)
             subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
             st.text(f'{doc.id} 완료')
-	    collection.document(doc.id).set({
-		"Analysis": "True",
-		"URL": url
+            collection.document(f'{doc.id}').set({
+	     "Analysis": "True",
+	     "URL": url
 	    })
 
 
