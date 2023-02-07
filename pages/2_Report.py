@@ -85,12 +85,12 @@ def main():
      
     
     #for idx, (h, mi, se, url, analyzed) in enumerate(ds):
-
     url = ds[0][3]
-    video_info = get_video_info(url)
     st.write(url)
+    
+    video_info = get_video_info(url)
     st.write(video_info)
-
+    
     save_path = './tmp-videos/tmp.mp4'
     cvt_path = './tmp-videos/cvt.mp4'
     detect_video( model, video_info, save_path)
