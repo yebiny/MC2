@@ -97,7 +97,7 @@ def main():
         detect_video( model, video_info, save_path)
         subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
     
-
+        st.video(cvt_path)
     
 
 
