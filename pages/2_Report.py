@@ -72,32 +72,27 @@ def main():
         started = True
         url = doc.to_dict()["URL"]
         analyzed = doc.to_dict()["Analysis"]
-        ds.append([h, mi, se, url, analyzed])
+        ds.append([doc.id, h, mi, se, url, analyzed])
 
-    with st.expander("See explanation"):
-      st.markdown(f'''
-        ##### {select_y} {select_m}월 {select_d}일
-        ''')
-    
-      for (h, mi, se, url, analyzed) in ds:
-        st.write(f'{h}시 {mi}분 {se}초')
-        st.text(f'분석: {analyzed}')
-     
-    
-    #for idx, (h, mi, se, url, analyzed) in enumerate(ds):
-    if bool(ds):
-        url = ds[0][3]
-        st.write(url)
+    # 해당 날짜 영상이 있으면
+    if bool(ds):    
+      for (doc.id, h, mi, se, url, analyzed) in ds:
+        c1, c2 = st.columns(3)
+        with c1:
+            if eval(analyzed): st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
+            else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 완료')
+        with c2:
+            st.button('영상 플레이', key=doc.id)
 
-        video_info = get_video_info(url)
-        st.write(video_info)
-
-        save_path = './tmp-videos/tmp.mp4'
-        cvt_path = './tmp-videos/cvt.mp4'
-        detect_video( model, video_info, save_path)
-        subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+        
     
-        st.video(cvt_path)
+    
+
+
+        #video_info = get_video_info(url)
+        #detect_video( model, video_info, save_path)
+        #subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+        #st.video(cvt_path)
     
 
 
