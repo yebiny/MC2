@@ -99,7 +99,7 @@ def main():
             if st.button('영상 플레이', key=doc_id):
                 target = doc.to_dict()['URL']
     
-    if analyze_button:
+    if st.button('분석하기'):
         for doc in doc_list:
             save_path = f'./tmp-videos/{doc.id}.mp4'
             cvt_path = save_path.replace('.mp4', '-cvt.mp4')
