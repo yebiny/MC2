@@ -63,6 +63,7 @@ def main():
     select_y, select_m, select_d = str(date_input).split('-') 
 
     ds = []
+    save_path = None
     started = False
     for doc in collection.stream():
         y, m, d, h, mi, se = doc.id.split('_')
@@ -74,6 +75,7 @@ def main():
         analyzed = doc.to_dict()["Analysis"]
         ds.append([doc.id, h, mi, se, url, analyzed])
 
+        
     # 해당 날짜 영상이 있으면
     if bool(ds):    
       for (doc_id, h, mi, se, url, analyzed) in ds:
@@ -87,7 +89,10 @@ def main():
                 save_path = './tmp-videos/{doc_id}.mp4'
                 
         
-      st.write(save_path)
+     
+    
+    if save_path is not None:
+        st.write(save_path)
         
 
 
