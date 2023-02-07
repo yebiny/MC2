@@ -109,7 +109,7 @@ def main():
    
     c_text, c_but, c_p = st.columns(3)
     with c_text:
-        st.subtitle(f'{select_y}년 {select_m}월 {select_d}일 [{analyzed}]')
+        st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [{analyzed}]')
     with c_but: analyze_button = st.button("분석하기")            
     with c_p: p = st.progress(0)
     display_list(doc_list)
