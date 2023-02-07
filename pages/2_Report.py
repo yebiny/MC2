@@ -84,15 +84,17 @@ def main():
         st.text(f'분석: {analyzed}')
      
         
-    if st.button('분석 시작'):
-        for idx, (h, mi, se, url, analyzed) in enumerate(ds):
-            video_info = get_video_info(url)
-            st.write(video_info)
-        save_path = './tmp-videos/tmp.mp4'
-        cvt_path = './tmp-videos/cvt.mp4'
-        detect_video( model, video_info, save_path)
-        subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
-        st.video(cvt_path)    
+    for idx, (h, mi, se, url, analyzed) in enumerate(ds):
+        video_info = get_video_info(url)
+        st.write(video_info)
+        
+    save_path = './tmp-videos/tmp.mp4'
+    cvt_path = './tmp-videos/cvt.mp4'
+    detect_video( model, video_info, save_path)
+    subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+    
+    
+    st.video(cvt_path)    
 
     
 
