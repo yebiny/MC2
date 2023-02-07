@@ -82,7 +82,7 @@ def main():
             if eval(analyzed): st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
             else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 완료')
         with c2:
-            st.button('영상 플레이', key=doc.id)
+            st.button('영상 플레이', key=doc_id)
 
         
     
