@@ -122,8 +122,8 @@ def main():
                     analysis_process(doc, collection, model)   
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
-    if target_video is not None:               
-        st.video(target_video)
+        if target_video is not None:               
+            st.video(target_video)
     
 if __name__ == '__main__':
     main()
