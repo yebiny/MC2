@@ -110,7 +110,7 @@ def main():
             st.text(f'{doc.id} 완료')
             collection.document(f'{doc.id}').set({
 	     "Analysis": "True",
-	     "URL": url
+	     "URL": doc.to_dict()['URL']
 	    })
 
 
