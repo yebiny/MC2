@@ -64,7 +64,6 @@ def main():
     select_y, select_m, select_d = str(date_input).split('-') 
 
     ds = []
-    target_url = None
     save_path = None
     started = False
     
@@ -88,27 +87,26 @@ def main():
       for doc in doc_list:
         doc_id = doc.id
         h, mi, se = doc.id.split('_')[-3:]
-        url = doc.to_dict()["URL"]
         analyzed = doc.to_dict()["Analysis"]
         
         c1, c2, c3 = st.columns(3)
         with c1:
-            if eval(analyzed): st.write(f'- {h}시 {mi}분 {se}초 : 분석 완료')
-            else: st.write(f'- {h}시 {mi}분 {se}초 : 분석 전')
+            st.write(f'- {h}시 {mi}분 {se}초')
         with c2:
+            if eval(analyzed):  st.write('상태: 분석 완료')
+            else: st.write('상태: 분석 전')
+        with c3:
             if st.button('영상 플레이', key=doc_id):
-                target_url = url
-                save_path = f'./tmp-videos/{doc_id}.mp4'
+                target = doc.to_dict()['URL']
     
-    
-    
-    if save_path is not None:
-        cvt_path = save_path.replace('.mp4', '-cvt.mp4')
-        #video_info = get_video_info(target_url)
-        #detect_video( model, video_info, save_path)
-        #subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
-        st.video(cvt_path)
-    
+    if analyze_button:
+        for doc in doc_list:
+            save_path = f'./tmp-videos/{doc.id}.mp4'
+            cvt_path = save_path.replace('.mp4', '-cvt.mp4')
+            video_info = get_video_info(doc.to_dict()["URL"])
+            detect_video( model, video_info, save_path)
+            subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+            st.text(f'{doc.id} 완료')
 
 
 
