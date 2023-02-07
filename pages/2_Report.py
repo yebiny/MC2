@@ -43,7 +43,17 @@ def detect_video(model, video_info, save_path):
         i+=1
         p.progress(int((i/n_frames)*100))
         
-        
+def analysis_process(doc, collection, model):	
+	save_path = f'./tmp-videos/{doc.id}.mp4'
+	cvt_path = save_path.replace('.mp4', '-cvt.mp4')
+	video_info = get_video_info(doc.to_dict()["URL"])
+	detect_video( model, video_info, save_path)
+	subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+	st.text(f'{doc.id} 완료')
+	collection.document(f'{doc.id}').set({
+		"Analysis": "False",
+		"URL": doc.to_dict()['URL']
+	})        
  
 def main():
     
@@ -101,19 +111,9 @@ def main():
                 target = doc.to_dict()['URL']
     
     if analyze_button:
-        for doc in doc_list:
-            save_path = f'./tmp-videos/{doc.id}.mp4'
-            cvt_path = save_path.replace('.mp4', '-cvt.mp4')
-            video_info = get_video_info(doc.to_dict()["URL"])
-            detect_video( model, video_info, save_path)
-            subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
-            st.text(f'{doc.id} 완료')
-            collection.document(f'{doc.id}').set({
-	     "Analysis": "True",
-	     "URL": doc.to_dict()['URL']
-	    })
-
-
+		for doc in doc_list:
+			analysis_process(doc, collection, model)
+		
 
 if __name__ == '__main__':
     main()
