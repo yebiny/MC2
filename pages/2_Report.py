@@ -52,8 +52,25 @@ def analysis_process(doc, collection, model):
 	collection.document(f'{doc.id}').set({
 		"Analysis": "True",
 		"URL": doc.to_dict()['URL']
-	})        
- 
+	})      
+
+def display_list(doc_list):
+    if bool(doc_list):
+        for doc in doc_list:
+            doc_id = doc.id
+            h, mi, se = doc.id.split('_')[-3:]
+            analyzed = doc.to_dict()["Analysis"]
+
+            c1, c2, c3 = st.columns(3)
+            with c1:
+                st.write(f'- {h}시 {mi}분 {se}초')
+            with c2:
+                if eval(analyzed):  st.write('분석 완료')
+                else: st.write(f'분석 전')
+            with c3:
+                if st.button('영상 플레이', key=doc_id):
+                    target = doc.to_dict()['URL']
+
 def main():
     
     # 파이어베이스 db에서 정보 가져오기
@@ -92,27 +109,11 @@ def main():
     ## 3. 분석 완료된 영상은 플레이 버튼 생성   
    
     analyze_button = st.button("분석하기")
-
-
-    if bool(doc_list):      
+    display_list(doc_list)
+    
+    if analyze_button and bool(doc_list): 
         for doc in doc_list:
-            if analyze_button: analysis_process(doc, collection, model)     
-            doc_id = doc.id
-            h, mi, se = doc.id.split('_')[-3:]
-            analyzed = doc.to_dict()["Analysis"]
-            
-            c1, c2, c3 = st.columns(3)
-            with c1:
-                st.write(f'- {h}시 {mi}분 {se}초')
-            with c2:
-                if eval(analyzed):  st.write('상태: 분석 완료')
-                else: st.write(f'상태: 분석 전')
-            with c3:
-                if st.button('영상 플레이', key=doc_id):
-                    target = doc.to_dict()['URL']
-
-
-		
-
+            analysis_process(doc, collection, model)   
+    
 if __name__ == '__main__':
     main()
