@@ -32,7 +32,7 @@ def detect_video(model, video_info, save_path):
     while True:
         ret, frame = cap.read()
         if not ret: break
-        if i%int(fps)==0: #1초마다
+        if i%int(fps/2)==0: #0.5초마다
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
             detections = model.detect(frame)
             frame = visualize(frame, detections)
