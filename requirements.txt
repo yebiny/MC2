@@ -1,4 +1,4 @@
-ffmpeg
+ffmpeg-python
 google-cloud-firestore
 absl-py==1.4.0
 aioice==0.7.6
