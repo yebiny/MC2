@@ -28,8 +28,7 @@ def detect_video(model, video_info, save_path):
     fourcc_mp4 = cv2.VideoWriter_fourcc(*'mp4v')
     out_mp4 = cv2.VideoWriter(save_path, fourcc_mp4, fps, (w, h))
    
-    p = st.progress(0)
-    i = 0 
+
     while True:
         ret, frame = cap.read()
         if not ret: break
@@ -41,7 +40,6 @@ def detect_video(model, video_info, save_path):
         frame = visualize(frame, detections)
         out_mp4.write(frame)
         i+=1
-        p.progress(int((i/n_frames)*100))
         
 def analysis_process(doc, collection, model):	
 	save_path = f'./tmp-videos/{doc.id}.mp4'
@@ -61,13 +59,13 @@ def display_list(doc_list):
             h, mi, se = doc.id.split('_')[-3:]
             analyzed = doc.to_dict()["Analysis"]
 
-            c1, c2, c3 = st.columns(3)
+            c1, c2 = st.columns(2)
             with c1:
                 st.write(f'- {h}시 {mi}분 {se}초')
+            #with c2:
+            #    if eval(analyzed):  st.write('분석 완료')
+            #    else: st.write(f'분석 전')
             with c2:
-                if eval(analyzed):  st.write('분석 완료')
-                else: st.write(f'분석 전')
-            with c3:
                 if st.button('영상 플레이', key=doc_id):
                     target = doc.to_dict()['URL']
 
@@ -108,11 +106,15 @@ def main():
     ## 2. 분석하기 버튼을 누르면 분석 시작
     ## 3. 분석 완료된 영상은 플레이 버튼 생성   
    
-    analyze_button = st.button("분석하기")
+    c_but, c_p = st.columns(2)
+    with c_but: analyze_button = st.button("분석하기")            
+    with c_p: p = st.progress(0)
     display_list(doc_list)
     
+
     if analyze_button and bool(doc_list): 
-        for doc in doc_list:
+        for i, doc in enumerate(doc_list):
+            p.progress(int((i/len(doc_list))*100))
             analysis_process(doc, collection, model)   
     
 if __name__ == '__main__':
