@@ -115,27 +115,28 @@ def main():
             with c2:
                 play_button =  st.button('Play', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
-                    
+       
+        
+        for i, doc in enumerate(doc_list):
         #분석 버튼 누르면 분석 진행
-        if analyze_button: 
-            for i, doc in enumerate(doc_list):
-                #if not eval(doc.to_dict()["Analysis"]):
-                detect_result = analysis_process(doc, collection, model)   
-                with c3:
-                    if detect_result > 0.5: 
-                        reslt = '구토'
-                        color = 'Red'
-                    else: 
-                        reslt = '정상'
-                        color = 'Green'
-                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{reslt}</p>'
-                    st.markdown(txt, unsafe_allow_html=True)
+            if analyze_button: 
+                    #if not eval(doc.to_dict()["Analysis"]):
+                    detect_result = analysis_process(doc, collection, model)   
+                    with c3:
+                        if detect_result > 0.5: 
+                            reslt = '구토'
+                            color = 'Red'
+                        else: 
+                            reslt = '정상'
+                            color = 'Green'
+                        txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{reslt}</p>'
+                        st.markdown(txt, unsafe_allow_html=True)
 
-                p.progress(int(((i+1)/len(doc_list))*100))
-        else:
-            with c3:
-                txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{analyzed}</p>'
-                st.markdown(txt, unsafe_allow_html=True)
+                    p.progress(int(((i+1)/len(doc_list))*100))
+            else:
+                with c3:
+                    txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{analyzed}</p>'
+                    st.markdown(txt, unsafe_allow_html=True)
 
         if target_video is not None:               
             st.video(target_video)
