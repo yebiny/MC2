@@ -118,7 +118,7 @@ def main():
             analyzed = doc.to_dict()["Analysis"]
 
             with c1:
-                new_title = f'<p style="font-family:sans-serif; font-size: 22.5px;">{h}시 {mi}분 {se}초</p>'
+                txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{h}시 {mi}분 {se}초</p>'
                 st.markdown(new_title, unsafe_allow_html=True)
             with c2:
                 play_button =  st.button('Play', key=doc_id)
@@ -130,8 +130,15 @@ def main():
                 #if not eval(doc.to_dict()["Analysis"]):
                 detect_result = analysis_process(doc, collection, model)   
                 with c3:
-                    if detect_result > 0.5: st.text('구토')
-                    else: st.text('')
+                    if detect_result > 0.5: 
+                        txt = '구토'
+                        color = 'Red'
+                    else: 
+                        txt = '정상'
+                        color = 'Green'
+                    txt = f'<p style="font-family:sans-serif; color:Green; font-size: 22.5px;">txt</p>'
+                    st.markdown(txt, unsafe_allow_html=True)
+
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
         if target_video is not None:               
