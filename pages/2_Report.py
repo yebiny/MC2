@@ -131,12 +131,12 @@ def main():
                 detect_result = analysis_process(doc, collection, model)   
                 with c3:
                     if detect_result > 0.5: 
-                        txt = '구토'
+                        reslt = '구토'
                         color = 'Red'
                     else: 
-                        txt = '정상'
+                        reslt = '정상'
                         color = 'Green'
-                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">txt</p>'
+                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{reslt}</p>'
                     st.markdown(txt, unsafe_allow_html=True)
 
                 p.progress(int(((i+1)/len(doc_list))*100))
