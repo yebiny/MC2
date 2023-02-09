@@ -38,7 +38,7 @@ def detect_video(model, video_info, save_path):
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
             detections = model.detect(frame)
             for detection in detections:
-                print(detection['categories'])
+                print(detection[1])
             frame = visualize(frame, detections)
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) 
         frame = visualize(frame, detections)
