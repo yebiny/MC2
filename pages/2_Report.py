@@ -96,17 +96,15 @@ def main():
             else: continue
         started = True
         doc_list.append(doc)
-
     
+    st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
+    c_but, c_p = st.columns(2)
+    with c_but: analyze_button = st.button("분석하기")            
+    with c_p: p = st.progress(0)
+        
     # 해당 날짜 doc에 정보가 있으면 목록생성    
     if bool(doc_list) or analyze_button:
-        st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
-        c_but, c_p = st.columns(2)
-        c1, c2, c3 = st.columns(3)
-
-        with c_but: analyze_button = st.button("분석하기")            
-        with c_p: p = st.progress(0)
-            
+        c1, c2, c3 = st.columns(3)         
         for doc in doc_list:
             doc_id = doc.id
             h, mi, se = doc.id.split('_')[-3:]
