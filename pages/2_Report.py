@@ -118,7 +118,7 @@ def main():
             analyzed = doc.to_dict()["Analysis"]
 
             with c1:
-                new_title = f'<p style="font-family:sans-serif; color:Green; font-size: 42px;">{h}시 {mi}분 {se}초</p>'
+                new_title = f'<p style="font-family:sans-serif; color:Green; font-size: 20px;">{h}시 {mi}분 {se}초</p>'
                 st.markdown(new_title, unsafe_allow_html=True)
             with c2:
                 play_button =  st.button('Play', key=doc_id)
