@@ -29,7 +29,7 @@ def detect_video(model, video_info, save_path):
     # specify a writer to write a processed video to a disk frame by frame
     fourcc_mp4 = cv2.VideoWriter_fourcc(*'mp4v')
     out_mp4 = cv2.VideoWriter(save_path, fourcc_mp4, fps, (w, h))
-   
+
     i=0
     states = []
     while True:
@@ -87,8 +87,6 @@ def main():
     select_y, select_m, select_d = [int(x) for x in str(now).split(' ')[0].split('-') ]
     date_input= st.date_input("분석할 날짜를 선택하세요.", dt.date(select_y, select_m, select_d) )
     select_y, select_m, select_d = str(date_input).split('-') 
-
-
     
     # 선택한 날짜에 해당하는 doc 가져오기
     doc_list = []
@@ -98,20 +96,14 @@ def main():
             else: continue
         started = True
         doc_list.append(doc)
-        analyzed = doc.to_dict()["Analysis"]
 
     
-    # 해당 날짜 doc에 정보가 있으면 목록생성
-
-
-    
+    # 해당 날짜 doc에 정보가 있으면 목록생성    
     if bool(doc_list) or analyze_button:
-        if eval(analyzed): anal_text='분석 완료'
-        else: anal_text='분석 전'
         st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
         c_but, c_p = st.columns(2)
         c1, c2, c3 = st.columns(3)
-        
+
         with c_but: analyze_button = st.button("분석하기")            
         with c_p: p = st.progress(0)
             
