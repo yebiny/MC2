@@ -132,44 +132,45 @@ def main():
             else:
                 state = "분석 전"
 
-            # 분석 상태 표시
-            with c3:
-                c = colors[state]
-                txt = f'<p style="font-family:sans-serif; color: {c}; font-size: 22.5px;">{state}</p>'
-                st.markdown(txt, unsafe_allow_html=True)
+            # 분석 상태 기본 표시
+            if not analyze_button:
+                with c3:
+                    c = colors[state]
+                    txt = f'<p style="font-family:sans-serif; color: {c}; font-size: 22.5px;">{state}</p>'
+                    st.markdown(txt, unsafe_allow_html=True)
                     
             # 만약 분석 버튼 누르면
-            if analyze_button: 
-                #if not eval(doc.to_dict()["Analysis"]):
+            else: 
+                if not eval(doc.to_dict()["Analysis"]):
                 
-                # 영상 분석 및 저장
-                save_path = f'./tmp-videos/{doc.id}.mp4'
-                video_info = get_video_info(doc.to_dict()["URL"])
-                detect_result = detect_video( model, video_info, save_path)
+                    # 영상 분석 및 저장
+                    save_path = f'./tmp-videos/{doc.id}.mp4'
+                    video_info = get_video_info(doc.to_dict()["URL"])
+                    detect_result = detect_video( model, video_info, save_path)
 
-                # 분석한 영상 변환
-                cvt_path = save_path.replace('.mp4', '-cvt.mp4')
-                subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
-                
-                # 결과 파이어베이스 저장
-                if detect_result > 0.5:
-                    result = '구토'
-                    color = 'Red'
-                else: 
-                    result = '정상'
-                    color = 'Green'
-                collection.document(f'{doc.id}').set({
-                    "Analysis": "True",
-                    "URL": doc.to_dict()['URL'],
-                    "Result": result,
-                    "Confidence": detect_result
-                })     
-                
-                # 목록에 결과 표시
-                with c3:
-                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{result}</p>'
-                    st.markdown(txt, unsafe_allow_html=True)
-                p.progress(int(((i+1)/len(doc_list))*100)) # 프로그래스 바 증가
+                    # 분석한 영상 변환
+                    cvt_path = save_path.replace('.mp4', '-cvt.mp4')
+                    subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+
+                    # 결과 파이어베이스 저장
+                    if detect_result > 0.5:
+                        result = '구토'
+                        color = 'Red'
+                    else: 
+                        result = '정상'
+                        color = 'Green'
+                    collection.document(f'{doc.id}').set({
+                        "Analysis": "True",
+                        "URL": doc.to_dict()['URL'],
+                        "Result": result,
+                        "Confidence": detect_result
+                    })     
+
+                    # 목록에 결과 표시
+                    with c3:
+                        txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{result}</p>'
+                        st.markdown(txt, unsafe_allow_html=True)
+                    p.progress(int(((i+1)/len(doc_list))*100)) # 프로그래스 바 증가
             
 
                 
