@@ -102,6 +102,8 @@ def main():
 
     
     # 해당 날짜 doc에 정보가 있으면 목록생성
+    c_but, c_p = st.columns(2)
+
     c1, c2, c3 = st.columns(3)
 
     if bool(doc_list):
@@ -109,7 +111,6 @@ def main():
         else: anal_text='분석 전'
         st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
 
-        c_but, c_p = st.columns(2)
         with c_but: analyze_button = st.button("분석하기")            
         with c_p: p = st.progress(0)
         for doc in doc_list:
