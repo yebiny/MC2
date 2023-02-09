@@ -115,7 +115,7 @@ def main():
             h, mi, se = doc.id.split('_')[-3:]
             analyzed = doc.to_dict()["Analysis"]
 
-            c1, c2, c3 = st.columns(2)
+            c1, c2, c3 = st.columns(3)
             with c1:
                 st.write(f'- {h}시 {mi}분 {se}초')
             with c2:
