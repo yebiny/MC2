@@ -162,7 +162,7 @@ def main():
             else:
                 # 분석 여부 확인
                 analyzed = doc.to_dict()["Analysis"]
-                if eval(analyzed) and (doc.to_dict()["Result"] is exist):
+                if eval(analyzed):
                     state = doc.to_dict()["Result"]
                 else:
                     state = "분석 전"
