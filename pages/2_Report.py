@@ -119,7 +119,7 @@ def main():
 
             with c1:
                 txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{h}시 {mi}분 {se}초</p>'
-                st.markdown(new_title, unsafe_allow_html=True)
+                st.markdown(txt, unsafe_allow_html=True)
             with c2:
                 play_button =  st.button('Play', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
@@ -136,7 +136,7 @@ def main():
                     else: 
                         txt = '정상'
                         color = 'Green'
-                    txt = f'<p style="font-family:sans-serif; color:Green; font-size: 22.5px;">txt</p>'
+                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">txt</p>'
                     st.markdown(txt, unsafe_allow_html=True)
 
                 p.progress(int(((i+1)/len(doc_list))*100))
