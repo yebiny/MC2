@@ -50,7 +50,7 @@ def analysis_process(doc, collection, model):
 	detect_video( model, video_info, save_path)
 	subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
 	collection.document(f'{doc.id}').set({
-		"Analysis": "True",
+		"Analysis": "False",
 		"URL": doc.to_dict()['URL']
 	})      
     
@@ -98,7 +98,6 @@ def main():
 
     
     # 해당 날짜 doc에 정보가 있으면 목록생성
-    
     if bool(doc_list):
         if eval(analyzed): anal_text='분석 완료'
         else: anal_text='분석 전'
@@ -122,8 +121,8 @@ def main():
 	# 분석 버튼 누르면 분석 진행
         if analyze_button: 
             for i, doc in enumerate(doc_list):
-                if not eval(doc.to_dict()["Analysis"]):
-                    analysis_process(doc, collection, model)   
+                #if not eval(doc.to_dict()["Analysis"]):
+                analysis_process(doc, collection, model)   
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
         if target_video is not None:               
