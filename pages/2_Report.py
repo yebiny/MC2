@@ -102,6 +102,8 @@ def main():
 
     
     # 해당 날짜 doc에 정보가 있으면 목록생성
+    c1, c2, c3 = st.columns(3)
+
     if bool(doc_list):
         if eval(analyzed): anal_text='분석 완료'
         else: anal_text='분석 전'
@@ -115,7 +117,6 @@ def main():
             h, mi, se = doc.id.split('_')[-3:]
             analyzed = doc.to_dict()["Analysis"]
 
-            c1, c2, c3 = st.columns(3)
             with c1:
                 st.write(f'- {h}시 {mi}분 {se}초')
             with c2:
