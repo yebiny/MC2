@@ -123,26 +123,27 @@ def main():
                 play_button =  st.button('Play', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
         
-        # 열 3: 분석 결과 표시
-        for i, doc in enumerate(doc_list):
-            # 분석 여부 확인
-            analyzed = doc.to_dict()["Analysis"]
-            if eval(analyzed):
-                state = doc.to_dict()["Result"]
-            else:
-                state = "분석 전"
+        
+        # 열 3: 기존 결과 표시 (기본)
+        if not analyze_button:
+            for i, doc in enumerate(doc_list):
+                # 분석 여부 확인
+                analyzed = doc.to_dict()["Analysis"]
+                if eval(analyzed):
+                    state = doc.to_dict()["Result"]
+                else:
+                    state = "분석 전"
 
-            # 분석 상태 기본 표시
-            if not analyze_button:
                 with c3:
                     c = colors[state]
                     txt = f'<p style="font-family:sans-serif; color: {c}; font-size: 22.5px;">{state}</p>'
                     st.markdown(txt, unsafe_allow_html=True)
-                    
-            # 만약 분석 버튼 누르면
-            else: 
+       
+                           
+        # 만약 분석 버튼 누르면
+        else: 
+            for i, doc in enumerate(doc_list):
                 if not eval(doc.to_dict()["Analysis"]):
-                
                     # 영상 분석 및 저장
                     save_path = f'./tmp-videos/{doc.id}.mp4'
                     video_info = get_video_info(doc.to_dict()["URL"])
@@ -170,7 +171,15 @@ def main():
                     with c3:
                         txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{result}</p>'
                         st.markdown(txt, unsafe_allow_html=True)
-                    p.progress(int(((i+1)/len(doc_list))*100)) # 프로그래스 바 증가
+                
+                else:
+                    state = doc.to_dict()["Result"]
+                    with c3:
+                        c = colors[state]
+                        txt = f'<p style="font-family:sans-serif; color: {c}; font-size: 22.5px;">{state}</p>'
+                        st.markdown(txt, unsafe_allow_html=True)
+                
+                p.progress(int(((i+1)/len(doc_list))*100)) # 프로그래스 바 증가
             
 
                 
