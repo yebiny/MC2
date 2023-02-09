@@ -35,7 +35,7 @@ def detect_video(model, video_info, save_path):
     while True:
         ret, frame = cap.read()
         if not ret: break
-        if i%int(fps/2)==0: #0.5초마다
+        if i%int(fps)==0: #0.5초마다
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
             detections = model.detect(frame)
             for detection in detections:
@@ -155,7 +155,7 @@ def main():
                 
                 # 목록에 결과 표시
                 with c3:
-                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{reslt}</p>'
+                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{result}</p>'
                     st.markdown(txt, unsafe_allow_html=True)
                 p.progress(int(((i+1)/len(doc_list))*100)) # 프로그래스 바 증가
             
