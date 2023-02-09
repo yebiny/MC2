@@ -45,7 +45,8 @@ def detect_video(model, video_info, save_path):
         frame = visualize(frame, detections)
         out_mp4.write(frame)
         i+=1
-	st.text(states)
+ 
+    st.text(states)
     
 def analysis_process(doc, collection, model):	
 	save_path = f'./tmp-videos/{doc.id}.mp4'
