@@ -125,7 +125,19 @@ def main():
         
         # 열 3: 분석 결과 표시
         for i, doc in enumerate(doc_list):
+            # 분석 여부 확인
+            analyzed = doc.to_dict()["Analysis"]
+            if eval(analyzed):
+                state = doc.to_dict()["Result"]
+            else:
+                state = "분석 전"
 
+            # 분석 상태 표시
+            with c3:
+                c = colors[state]
+                txt = f'<p style="font-family:sans-serif; color: {c}; font-size: 22.5px;">{state}</p>'
+                st.markdown(txt, unsafe_allow_html=True)
+                    
             # 만약 분석 버튼 누르면
             if analyze_button: 
                 #if not eval(doc.to_dict()["Analysis"]):
@@ -159,19 +171,7 @@ def main():
                     st.markdown(txt, unsafe_allow_html=True)
                 p.progress(int(((i+1)/len(doc_list))*100)) # 프로그래스 바 증가
             
-            else:
-                # 분석 여부 확인
-                analyzed = doc.to_dict()["Analysis"]
-                if eval(analyzed):
-                    state = doc.to_dict()["Result"]
-                else:
-                    state = "분석 전"
 
-                # 분석 상태 표시
-                with c3:
-                    c = colors[state]
-                    txt = f'<p style="font-family:sans-serif; color: {c}; font-size: 22.5px;">{state}</p>'
-                    st.markdown(txt, unsafe_allow_html=True)
                 
                 
 
