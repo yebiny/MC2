@@ -79,7 +79,7 @@ def main():
     # 날짜 선택
     st.title('리포트')
     KST = pytz.timezone('Asia/Seoul')
-    now = dt.now(KST)
+    now = dt.datetime.now(KST)
     st.text(now)
     select_y, select_m, select_d = 2023, 2, 1
     date_input= st.date_input("분석할 날짜를 선택하세요.", datetime.date(select_y, select_m, select_d) )
