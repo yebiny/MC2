@@ -111,7 +111,7 @@ def main():
         st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
         c_but, c_p = st.columns(2)
         c1, c2, c3 = st.columns(3)
-
+        
         with c_but: analyze_button = st.button("분석하기")            
         with c_p: p = st.progress(0)
             
@@ -119,7 +119,6 @@ def main():
             doc_id = doc.id
             h, mi, se = doc.id.split('_')[-3:]
             analyzed = doc.to_dict()["Analysis"]
-
             with c1:
                 txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{h}시 {mi}분 {se}초</p>'
                 st.markdown(txt, unsafe_allow_html=True)
@@ -127,7 +126,7 @@ def main():
                 play_button =  st.button('Play', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
                     
-	# 분석 버튼 누르면 분석 진행
+        #분석 버튼 누르면 분석 진행
         if analyze_button: 
             for i, doc in enumerate(doc_list):
                 #if not eval(doc.to_dict()["Analysis"]):
