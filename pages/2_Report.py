@@ -48,15 +48,15 @@ def detect_video(model, video_info, save_path):
     return states.count('Vomit')/len(states)
     
 def analysis_process(doc, collection, model):	
-	save_path = f'./tmp-videos/{doc.id}.mp4'
-	cvt_path = save_path.replace('.mp4', '-cvt.mp4')
-	video_info = get_video_info(doc.to_dict()["URL"])
-	detect_result = detect_video( model, video_info, save_path)
-	subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
-	collection.document(f'{doc.id}').set({
-		"Analysis": "True",
-		"URL": doc.to_dict()['URL']
-	})      
+    save_path = f'./tmp-videos/{doc.id}.mp4'
+    cvt_path = save_path.replace('.mp4', '-cvt.mp4')
+    video_info = get_video_info(doc.to_dict()["URL"])
+    detect_result = detect_video( model, video_info, save_path)
+    subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+    collection.document(f'{doc.id}').set({
+        "Analysis": "True",
+        "URL": doc.to_dict()['URL']
+    })      
     return detect_result
 
 
