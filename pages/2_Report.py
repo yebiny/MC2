@@ -118,9 +118,10 @@ def main():
             analyzed = doc.to_dict()["Analysis"]
 
             with c1:
-                st.text(f'- {h}시 {mi}분 {se}초')
+                new_title = f'<p style="font-family:sans-serif; color:Green; font-size: 42px;">{h}시 {mi}분 {se}초</p>'
+                st.markdown(new_title, unsafe_allow_html=True)
             with c2:
-                play_button =  st.button('영상 플레이', key=doc_id)
+                play_button =  st.button('Play', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
 
 	# 분석 버튼 누르면 분석 진행
@@ -129,7 +130,8 @@ def main():
                 #if not eval(doc.to_dict()["Analysis"]):
                 detect_result = analysis_process(doc, collection, model)   
                 with c3:
-	                st.text(detect_result)
+                    if detect_result > 0.5: st.text('구토')
+                    else: st.text('')
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
         if target_video is not None:               
