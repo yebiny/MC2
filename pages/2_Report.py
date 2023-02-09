@@ -120,7 +120,7 @@ def main():
             with c1:
                 st.write(f'- {h}시 {mi}분 {se}초')
             with c2:
-                play_button =  st.button('영상 플레이', key=doc_id):
+                play_button =  st.button('영상 플레이', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
 
 	# 분석 버튼 누르면 분석 진행
