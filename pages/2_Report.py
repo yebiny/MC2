@@ -97,7 +97,7 @@ def main():
         started = True
         doc_list.append(doc)
     
-    st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
+    st.subheader(f'{select_y}년 {select_m}월 {select_d}일')
     c_but, c_p = st.columns(2)
     with c_but: analyze_button = st.button("분석하기")            
     with c_p: p = st.progress(0)
