@@ -114,7 +114,7 @@ def main():
         
         with c_but: analyze_button = st.button("분석하기")            
         with c_p: p = st.progress(0)
-        
+            
         for doc in doc_list:
             doc_id = doc.id
             h, mi, se = doc.id.split('_')[-3:]
