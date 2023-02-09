@@ -48,15 +48,19 @@ def detect_video(model, video_info, save_path):
     return states.count('Vomit')/len(states)
     
 def analysis_process(doc, collection, model):	
+    
     save_path = f'./tmp-videos/{doc.id}.mp4'
     cvt_path = save_path.replace('.mp4', '-cvt.mp4')
+    
     video_info = get_video_info(doc.to_dict()["URL"])
     detect_result = detect_video( model, video_info, save_path)
+    
     subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
     collection.document(f'{doc.id}').set({
         "Analysis": "True",
         "URL": doc.to_dict()['URL']
     })      
+    
     return detect_result
 
 
@@ -69,16 +73,17 @@ def main():
     creds = service_account.Credentials.from_service_account_info(key_dict)
     db = firestore.Client(credentials=creds)
     collection = db.collection("user001")
+    
     # 모델 불러오기
     model_path = 'models/effdet_v5.tflite'   
     model = load_model(model_path)
-    
     
     # 변수 
     ds = []
     save_path = None
     started = False
     target_video = None
+    colors = {"분석 전": "Black", "정상": "Green", "구토": "Red"}
     
     # 날짜 선택
     st.title('리포트')
@@ -97,46 +102,78 @@ def main():
         started = True
         doc_list.append(doc)
     
+    # UI: 날짜, 분석 버튼, 프로세스 바
     st.subheader(f'{select_y}년 {select_m}월 {select_d}일')
     c_but, c_p = st.columns(2)
     with c_but: analyze_button = st.button("분석하기")            
     with c_p: p = st.progress(0)
         
-    # 해당 날짜 doc에 정보가 있으면 목록생성    
+    # 비디오 목록생성    
     if bool(doc_list) or analyze_button:
-        c1, c2, c3 = st.columns(3)         
+        c1, c2, c3 = st.columns(3)  
+        
+        # 열 1, 2 : 시간, 플레이 버튼 
         for doc in doc_list:
             doc_id = doc.id
             h, mi, se = doc.id.split('_')[-3:]
-            analyzed = doc.to_dict()["Analysis"]
             with c1:
                 txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{h}시 {mi}분 {se}초</p>'
                 st.markdown(txt, unsafe_allow_html=True)
             with c2:
                 play_button =  st.button('Play', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
-       
         
+        # 열 3: 분석 결과 표시
         for i, doc in enumerate(doc_list):
-        #분석 버튼 누르면 분석 진행
-            if analyze_button: 
-                    #if not eval(doc.to_dict()["Analysis"]):
-                    detect_result = analysis_process(doc, collection, model)   
-                    with c3:
-                        if detect_result > 0.5: 
-                            reslt = '구토'
-                            color = 'Red'
-                        else: 
-                            reslt = '정상'
-                            color = 'Green'
-                        txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{reslt}</p>'
-                        st.markdown(txt, unsafe_allow_html=True)
 
-                    p.progress(int(((i+1)/len(doc_list))*100))
-            else:
+            # 만약 분석 버튼 누르면
+            if analyze_button: 
+                #if not eval(doc.to_dict()["Analysis"]):
+                
+                # 영상 분석 및 저장
+                save_path = f'./tmp-videos/{doc.id}.mp4'
+                video_info = get_video_info(doc.to_dict()["URL"])
+                detect_result = detect_video( model, video_info, save_path)
+
+                # 분석한 영상 변환
+                cvt_path = save_path.replace('.mp4', '-cvt.mp4')
+                subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
+                
+                # 결과 파이어베이스 저장
+                if detect_result > 0.5:
+                    result = '구토'
+                    color = 'Red'
+                else: 
+                    result = '정상'
+                    color = 'Green'
+                collection.document(f'{doc.id}').set({
+                    "Analysis": "True",
+                    "URL": doc.to_dict()['URL'],
+                    "Result": result,
+                    "Confidence": detect_result
+                })     
+                
+                # 목록에 결과 표시
                 with c3:
-                    txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{analyzed}</p>'
+                    txt = f'<p style="font-family:sans-serif; color:{color}; font-size: 22.5px;">{reslt}</p>'
                     st.markdown(txt, unsafe_allow_html=True)
+                p.progress(int(((i+1)/len(doc_list))*100)) # 프로그래스 바 증가
+            
+            else:
+                # 분석 여부 확인
+                analyzed = doc.to_dict()["Analysis"]
+                if eval(analyzed) and (doc.to_dict()["Result"] is exist):
+                    state = doc.to_dict()["Result"]
+                else:
+                    state = "분석 전"
+
+                # 분석 상태 표시
+                with c3:
+                    c = colors[state]
+                    txt = f'<p style="font-family:sans-serif; color: {c}; font-size: 22.5px;">{state}</p>'
+                    st.markdown(txt, unsafe_allow_html=True)
+                
+                
 
         if target_video is not None:               
             st.video(target_video)
