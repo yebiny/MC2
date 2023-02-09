@@ -37,8 +37,8 @@ def detect_video(model, video_info, save_path):
         if i%int(fps/2)==0: #0.5초마다
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
             detections = model.detect(frame)
-			for detection in detections:
-				print(detection['categories'])
+            for detection in detections:
+                print(detection['categories'])
             frame = visualize(frame, detections)
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) 
         frame = visualize(frame, detections)
