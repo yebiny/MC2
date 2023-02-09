@@ -37,6 +37,7 @@ def detect_video(model, video_info, save_path):
         if i%int(fps/2)==0: #0.5초마다
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
             detections = model.detect(frame)
+            print(detections)
             frame = visualize(frame, detections)
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) 
         frame = visualize(frame, detections)
@@ -121,8 +122,9 @@ def main():
 	# 분석 버튼 누르면 분석 진행
         if analyze_button: 
             for i, doc in enumerate(doc_list):
-                if not eval(doc.to_dict()["Analysis"]):
-                    analysis_process(doc, collection, model)   
+                print(i)
+                #if not eval(doc.to_dict()["Analysis"]):
+                analysis_process(doc, collection, model)   
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
         if target_video is not None:               
