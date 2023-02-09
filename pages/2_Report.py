@@ -127,7 +127,8 @@ def main():
             for i, doc in enumerate(doc_list):
                 #if not eval(doc.to_dict()["Analysis"]):
                 detect_result = analysis_process(doc, collection, model)   
-                st.text(detect_result)
+				with c3:
+	                st.text(detect_result)
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
         if target_video is not None:               
