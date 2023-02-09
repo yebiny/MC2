@@ -105,7 +105,7 @@ def main():
 
 
     
-    if bool(doc_list):
+    if bool(doc_list) or analyze_button:
         if eval(analyzed): anal_text='분석 완료'
         else: anal_text='분석 전'
         st.subheader(f'{select_y}년 {select_m}월 {select_d}일 [ {anal_text} ]')
@@ -114,7 +114,8 @@ def main():
         
         with c_but: analyze_button = st.button("분석하기")            
         with c_p: p = st.progress(0)
-        for doc in doc_list:
+        
+		for doc in doc_list:
             doc_id = doc.id
             h, mi, se = doc.id.split('_')[-3:]
             analyzed = doc.to_dict()["Analysis"]
@@ -125,9 +126,6 @@ def main():
             with c2:
                 play_button =  st.button('Play', key=doc_id)
                 if play_button: target_video = f'./tmp-videos/{doc_id}.mp4'.replace('.mp4', '-cvt.mp4')
-            with c3:
-                txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{analyzed}</p>'
-                st.markdown(txt, unsafe_allow_html=True)
 
 	# 분석 버튼 누르면 분석 진행
         if analyze_button: 
@@ -145,7 +143,11 @@ def main():
                     st.markdown(txt, unsafe_allow_html=True)
 
                 p.progress(int(((i+1)/len(doc_list))*100))
-                
+        else:
+            with c3:
+                txt = f'<p style="font-family:sans-serif; font-size: 22.5px;">{analyzed}</p>'
+                st.markdown(txt, unsafe_allow_html=True)
+
         if target_video is not None:               
             st.video(target_video)
     
