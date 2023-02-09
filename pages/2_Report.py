@@ -45,20 +45,19 @@ def detect_video(model, video_info, save_path):
         frame = visualize(frame, detections)
         out_mp4.write(frame)
         i+=1
- 
-    st.text(states.count('Vomit')/len(states))
+    return states.count('Vomit')/len(states)
     
 def analysis_process(doc, collection, model):	
 	save_path = f'./tmp-videos/{doc.id}.mp4'
 	cvt_path = save_path.replace('.mp4', '-cvt.mp4')
 	video_info = get_video_info(doc.to_dict()["URL"])
-	detect_video( model, video_info, save_path)
+	detect_result = detect_video( model, video_info, save_path)
 	subprocess.call(f"ffmpeg -y -i {save_path} -c:v libx264 {cvt_path}", shell=True)
 	collection.document(f'{doc.id}').set({
 		"Analysis": "True",
 		"URL": doc.to_dict()['URL']
 	})      
-    
+    return detect_result
 
 
 
@@ -116,7 +115,7 @@ def main():
             h, mi, se = doc.id.split('_')[-3:]
             analyzed = doc.to_dict()["Analysis"]
 
-            c1, c2 = st.columns(2)
+            c1, c2, c3 = st.columns(2)
             with c1:
                 st.write(f'- {h}시 {mi}분 {se}초')
             with c2:
@@ -126,9 +125,9 @@ def main():
 	# 분석 버튼 누르면 분석 진행
         if analyze_button: 
             for i, doc in enumerate(doc_list):
-                print(i)
                 #if not eval(doc.to_dict()["Analysis"]):
-                analysis_process(doc, collection, model)   
+                detect_result = analysis_process(doc, collection, model)   
+                st.text(detect_result)
                 p.progress(int(((i+1)/len(doc_list))*100))
                 
         if target_video is not None:               
