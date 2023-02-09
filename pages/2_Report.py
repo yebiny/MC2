@@ -46,7 +46,7 @@ def detect_video(model, video_info, save_path):
         out_mp4.write(frame)
         i+=1
  
-    st.text(states)
+    st.text(states.count('Vomit')/len(states))
     
 def analysis_process(doc, collection, model):	
 	save_path = f'./tmp-videos/{doc.id}.mp4'
